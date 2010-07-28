@@ -1,0 +1,12 @@
+<h1><%%= t('Show'.downcase) %> : <%%= t('activerecord.models.<%= singular_name %>') %></h1>
+
+<% for attribute in attributes -%>
+<p>
+  <b><%%= t('activerecord.attributes.<%= singular_name %>.<%= attribute.column.human_name %>'.downcase) %>:</b>
+  <%%=h @<%= singular_name %>.<%= attribute.name %> %>
+</p>
+
+<% end -%>
+
+<%%= link_to t('Edit'.downcase), edit_<%= singular_name %>_path(@<%= singular_name %>) %> |
+<%%= link_to t('Back'.downcase), <%= plural_name %>_path %>

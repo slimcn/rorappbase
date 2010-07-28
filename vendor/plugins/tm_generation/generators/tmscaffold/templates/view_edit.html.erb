@@ -1,0 +1,18 @@
+<h1><%%= t('Editing'.downcase) %> : <%%= t('activerecord.models.<%= singular_name %>') %></h1>
+
+<%% form_for(@<%= singular_name %>) do |f| %>
+  <%%= f.error_messages %>
+
+<% for attribute in attributes -%>
+  <p>
+     <%%= f.label :<%= attribute.name %>, t('activerecord.attributes.<%= singular_name %>.<%= attribute.name %>') %><br />
+    <%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
+  </p>
+<% end -%>
+  <p>
+    <%%= f.submit t('Update'.downcase) %>
+  </p>
+<%% end %>
+
+<%%= link_to t('Show'.downcase), @<%= singular_name %> %> |
+<%%= link_to t('Back'.downcase), <%= plural_name %>_path %>
