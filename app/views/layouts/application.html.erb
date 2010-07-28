@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller.controller_name %>: <%= controller.action_name %></title>
+  <%= javascript_include_tag "application_init" %>
+  <%= javascript_include_tag "prototype", "effects", "dragdrop", "controls"%>
+  <%= jqgrid_stylesheets %>
+  <%= jqgrid_javascripts %>
+  <%= javascript_include_tag "application" %>
+
+<!--  start // 2dc_jqgrid js -->
+<script type="text/javascript">
+    tmeeerp_controller = '';
+    tmeeerp_controller = "<%= params[:controller] %>"
+
+    var_id = -1;
+    function handleSelection(id) {
+        var_id = id;
+    }
+
+  function afterSubmit(r, data, action) {
+    if(r.responseText != "") { // If an error message is returned
+      $('#submit_errors').html('<h1>Error</h1><p>'+r.responseText+'</p>');
+      $('#submit_errors').slideDown(); // Show div with error message
+
+      window.setTimeout(function() { // Hide error div after 6 seconds
+        $('#submit_errors').slideUp();
+      }, 6000);
+      return false; // Don't remove this!
+    }
+    return true; // Don't remove this!
+ }
+</script>
+<!-- // end // 2dc_jqgrid js -->
+
+</head>
+<body>
+  <div id="container">
+    <div id="header">
+      <h1><a href="/">rorappbase</a></h1>
+      <div id="user-navigation">
+        <ul class="wat-cf">
+          <li><a href="#"><%= t("web-app-theme.profile", :default => "用户信息") %></a></li>
+          <li><a href="#"><%= t("web-app-theme.settings", :default => "个人设置") %></a></li>
+          <li><a href="/logout" class="logout"><%= t("web-app-theme.logout", :default => "退出") %></a></li>
+        </ul>
+      </div>
+      <div id="main-navigation">
+        <ul class="wat-cf"></ul>
+      </div>
+    </div>
+    <div id="wrapper" class="wat-cf">
+      <div class="flash">
+        <% flash.each do |type, message| -%>
+          <div class="message <%= type %>">
+            <p><%= message %></p>
+          </div>
+        <% end -%>
+      </div>
+      <div id="main">
+<p style="color: green"><%= flash[:notice] %></p>
+
+<% if controller.action_name == "index" -%>
+  <div id="operation_buttons">
+    <%= buttonhtml([["add","新增"],["update","修改"],["delete","删除"],["show","查看"],["refresh","刷新"],["search","查询"]]) %>
+  </div>
+
+  <%= yield %>
+
+  <a href="#" id="tableRecs_select_button">选中记录id</a>
+<% else %>
+  <%= yield %>
+<% end -%>
+
+        <div id="footer">
+          <div class="block">
+            <p>Copyright &copy; <%= Time.now.year %> tmeeerp.</p>
+          </div>
+        </div>
+      </div>
+      <div id="sidebar">
+        <%= yield :sidebar %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
