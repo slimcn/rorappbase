@@ -1,0 +1,29 @@
+<p>
+<%= t("activerecord.attributes.rordemo.code") %>
+  <b>Code:</b>
+  <%=h @rordemo.code %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @rordemo.name %>
+</p>
+
+<p>
+  <b>Recordtype:</b>
+  <%=h @rordemo.recordtype %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @rordemo.status %>
+</p>
+
+<p>
+  <b>Remarks:</b>
+  <%=h @rordemo.remarks %>
+</p>
+
+
+<%= link_to 'Edit', edit_rordemo_path(@rordemo) %> |
+<%= link_to 'Back', rordemos_path %>
