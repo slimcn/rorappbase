@@ -203,10 +203,19 @@ zh_CN:
         even: "必须为双数"
 
     models:
+      code_rule: "编码规则"
       rordemo: "应用演示"
-      test1: "cs1"
 
     attributes:
+      code_rule:
+        table_name: "表名"
+        field_name: "字段名"
+        title: "编码头"
+        seq: "序号"
+        seq_len: "序号长度"
+        step: "步长"
+        rule_type: "类型"
+        remarks: "备注"
       rordemo:
         code : 编码
         name : 名称
@@ -214,6 +223,4 @@ zh_CN:
         status : 状态
         remarks : 备注
 
-      test1:
-        f1 : 编码
 

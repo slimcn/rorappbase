@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  table_name: MyString
+  field_name: MyString
+  title: MyString
+  seq: 1
+  seq_len: 1
+  step: 1
+  rule_type: MyString
+  remarks: MyText
+
+two:
+  table_name: MyString
+  field_name: MyString
+  title: MyString
+  seq: 1
+  seq_len: 1
+  step: 1
+  rule_type: MyString
+  remarks: MyText

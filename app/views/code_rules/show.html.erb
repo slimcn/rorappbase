@@ -1,0 +1,45 @@
+<h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.code_rule') %></h1>
+
+<p>
+  <b><%= t('activerecord.attributes.code_rule.Table name'.downcase) %>:</b>
+  <%=h @code_rule.table_name %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.code_rule.Field name'.downcase) %>:</b>
+  <%=h @code_rule.field_name %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.code_rule.Title'.downcase) %>:</b>
+  <%=h @code_rule.title %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.code_rule.Seq'.downcase) %>:</b>
+  <%=h @code_rule.seq %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.code_rule.Seq len'.downcase) %>:</b>
+  <%=h @code_rule.seq_len %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.code_rule.Step'.downcase) %>:</b>
+  <%=h @code_rule.step %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.code_rule.Rule type'.downcase) %>:</b>
+  <%=h @code_rule.rule_type %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.code_rule.Remarks'.downcase) %>:</b>
+  <%=h @code_rule.remarks %>
+</p>
+
+
+<%= link_to t('Edit'.downcase), edit_code_rule_path(@code_rule) %> |
+<%= link_to t('Back'.downcase), code_rules_path %>

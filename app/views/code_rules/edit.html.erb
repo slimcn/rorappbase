@@ -1,0 +1,44 @@
+<h1><%= t('Editing'.downcase) %> : <%= t('activerecord.models.code_rule') %></h1>
+
+<% form_for(@code_rule) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+     <%= f.label :table_name, t('activerecord.attributes.code_rule.table_name') %><br />
+    <%= f.text_field :table_name %>
+  </p>
+  <p>
+     <%= f.label :field_name, t('activerecord.attributes.code_rule.field_name') %><br />
+    <%= f.text_field :field_name %>
+  </p>
+  <p>
+     <%= f.label :title, t('activerecord.attributes.code_rule.title') %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+     <%= f.label :seq, t('activerecord.attributes.code_rule.seq') %><br />
+    <%= f.text_field :seq %>
+  </p>
+  <p>
+     <%= f.label :seq_len, t('activerecord.attributes.code_rule.seq_len') %><br />
+    <%= f.text_field :seq_len %>
+  </p>
+  <p>
+     <%= f.label :step, t('activerecord.attributes.code_rule.step') %><br />
+    <%= f.text_field :step %>
+  </p>
+  <p>
+     <%= f.label :rule_type, t('activerecord.attributes.code_rule.rule_type') %><br />
+    <%= f.text_field :rule_type %>
+  </p>
+  <p>
+     <%= f.label :remarks, t('activerecord.attributes.code_rule.remarks') %><br />
+    <%= f.text_area :remarks %>
+  </p>
+  <p>
+    <%= f.submit t('Update'.downcase) %>
+  </p>
+<% end %>
+
+<%= link_to t('Show'.downcase), @code_rule %> |
+<%= link_to t('Back'.downcase), code_rules_path %>
