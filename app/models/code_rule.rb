@@ -2,12 +2,12 @@
 class CodeRule < ActiveRecord::Base
   has_many :rordemos
 
-  # ¸ù¾İ±àÂë¹æÔò±íÊı¾İ»ñµÃĞÂ±àÂë
+  # æ ¹æ®ç¼–ç è§„åˆ™è¡¨æ•°æ®è·å¾—æ–°ç¼–ç 
   def self.code_rules_to_get_code(table_name, type="")
     rec_rule = CodeRule.find(:first, :conditions => "table_name='"+table_name+"'")
-    if not rec_rule #±àÂë¹æÔò²»´æÔÚ
-      logger.info("table_name='" + table_name + "'µÄ±àÂë¹æÔò²»´æÔÚ£¡")
-      return [nil, nil, nil, nil] if not rec_rule # Èô±àÂë¹æÔò²»´æÔÚ£¬Ôò·µ»Ønil
+    if not rec_rule #ç¼–ç è§„åˆ™ä¸å­˜åœ¨
+      logger.info("table_name='" + table_name + "'çš„ç¼–ç è§„åˆ™ä¸å­˜åœ¨ï¼")
+      return [nil, nil, nil, nil] if not rec_rule # è‹¥ç¼–ç è§„åˆ™ä¸å­˜åœ¨ï¼Œåˆ™è¿”å›nil
     end
     title = rec_rule[:title]
     seq = rec_rule[:seq]
@@ -15,7 +15,7 @@ class CodeRule < ActiveRecord::Base
     step = rec_rule[:step]
 
     code_pre = title
-    # ½«title°´[]Öğ¸ö½øĞĞ×ªÒåÌæ»»
+    # å°†titleæŒ‰[]é€ä¸ªè¿›è¡Œè½¬ä¹‰æ›¿æ¢
     t = Time.now
     year = t.year.to_s
     month = t.month.to_s
@@ -24,23 +24,23 @@ class CodeRule < ActiveRecord::Base
     code_pre.sub!("[YYYY]",   year[-4,4])
     code_pre.sub!("[MM]",     "0"*(2-month.length)+month)
     code_pre.sub!("[DD]",     "0"*(2-day.length)+day)
-    employe_code = 'aryb' # ÈËÔ±±àÂë
-    department_code = 'cbmd' # ²¿ÃÅ±àÂë
-    code_pre.sub!("[EE]",     employe_code[-2,2]) # ÈËÔ±±àÂë2Î»
-    code_pre.sub!("[EEE]",     employe_code[-3,3]) # ÈËÔ±±àÂë3Î»
-    code_pre.sub!("[EEEE]",   employe_code[-4,4]) # ÈËÔ±±àÂë4Î»
-    code_pre.sub!("[PP]",     department_code[-2,2]) # ²¿ÃÅ±àÂë2Î»
-    code_pre.sub!("[PPP]",     department_code[-3,3]) # ²¿ÃÅ±àÂë3Î»
-    code_pre.sub!("[PPPP]",     department_code[-4,4]) # ²¿ÃÅ±àÂë4Î»
-    # todo: ÓĞ¶àÉÙÖÖÌæ»»£¿±£´æÊ±¸üĞÂĞòºÅ£¿±£´æÇ°ÖØºÅµÄ¼ì²éºÍ´¦Àí£¿
+    employe_code = 'aryb' # äººå‘˜ç¼–ç 
+    department_code = 'cbmd' # éƒ¨é—¨ç¼–ç 
+    code_pre.sub!("[EE]",     employe_code[-2,2]) # äººå‘˜ç¼–ç 2ä½
+    code_pre.sub!("[EEE]",     employe_code[-3,3]) # äººå‘˜ç¼–ç 3ä½
+    code_pre.sub!("[EEEE]",   employe_code[-4,4]) # äººå‘˜ç¼–ç 4ä½
+    code_pre.sub!("[PP]",     department_code[-2,2]) # éƒ¨é—¨ç¼–ç 2ä½
+    code_pre.sub!("[PPP]",     department_code[-3,3]) # éƒ¨é—¨ç¼–ç 3ä½
+    code_pre.sub!("[PPPP]",     department_code[-4,4]) # éƒ¨é—¨ç¼–ç 4ä½
+    # todo: æœ‰å¤šå°‘ç§æ›¿æ¢ï¼Ÿä¿å­˜æ—¶æ›´æ–°åºå·ï¼Ÿä¿å­˜å‰é‡å·çš„æ£€æŸ¥å’Œå¤„ç†ï¼Ÿ
 
-    code_seq = seq + step # ĞÂĞòºÅ = ĞòºÅ + ²½³¤
+    code_seq = seq + step # æ–°åºå· = åºå· + æ­¥é•¿
     code = code_pre + "0"*(seq_len-code_seq.to_s.length) + code_seq.to_s
     return [code, code_pre, code_seq, rec_rule[:id]]
   end
 
-  # »ñµÃ×îÖÕ²»ÖØ¸´µÄ±àÂë
-  # def code_rules_to_get_unique_code(obj, field_name, code, rec_id, rule_id, old_seq, code_pre) # ÎŞ·¨´«µİºóÈı¸ö²ÎÊı£¬¹ÊÖ±½ÓÖØĞÂ»ñÈ¡
+  # è·å¾—æœ€ç»ˆä¸é‡å¤çš„ç¼–ç 
+  # def code_rules_to_get_unique_code(obj, field_name, code, rec_id, rule_id, old_seq, code_pre) # æ— æ³•ä¼ é€’åä¸‰ä¸ªå‚æ•°ï¼Œæ•…ç›´æ¥é‡æ–°è·å–
   def self.code_rules_to_get_unique_code(obj, code, rec_id)
     code, code_pre, code_seq, rule_id = code_rules_to_get_code(obj.table_name)
     field_name = CodeRule.find_by_id(rule_id)[:field_name]
@@ -52,7 +52,7 @@ class CodeRule < ActiveRecord::Base
     return [code, code_pre, code_seq, rule_id]
   end
 
-  # ¼ì²é±àÂëÊÇ·ñÖØ¸´
+  # æ£€æŸ¥ç¼–ç æ˜¯å¦é‡å¤
   def self.code_rules_to_check_code_equal(obj, field_name, code, rec_id)
     if rec_id
       records = obj.find(:all, :conditions => field_name+" = '"+code+"' and id <> "+rec_id)
@@ -62,10 +62,10 @@ class CodeRule < ActiveRecord::Base
     return records.length>0
   end
 
-  # »ñµÃĞÂ±àÂë
+  # è·å¾—æ–°ç¼–ç 
   def self.code_rules_to_get_new_code(rule_id, old_seq, code_pre)
     rec_rule = CodeRule.find_by_id(rule_id)
-    old_seq = rec_rule[:seq] if rec_rule[:seq] > old_seq # Èç¹ûÔ­ĞòºÅ±È±àÂë¹æÔòÖĞ»ù´¡ĞòºÅĞ¡£¬ÔòÒÔ±àÂë¹æÔòÖĞµÄĞòºÅÎª»ù´¡»ñµÃĞÂĞòºÅ
+    old_seq = rec_rule[:seq] if rec_rule[:seq] > old_seq # å¦‚æœåŸåºå·æ¯”ç¼–ç è§„åˆ™ä¸­åŸºç¡€åºå·å°ï¼Œåˆ™ä»¥ç¼–ç è§„åˆ™ä¸­çš„åºå·ä¸ºåŸºç¡€è·å¾—æ–°åºå·
     code_seq = old_seq + rec_rule[:step]
     code = code_pre + "0"*(rec_rule[:seq_len]-code_seq.to_s.length) + code_seq.to_s
     return [code, code_pre, code_seq, rule_id]

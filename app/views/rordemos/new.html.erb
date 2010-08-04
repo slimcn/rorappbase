@@ -4,8 +4,8 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :code %><br />
-    <%= f.text_field :code %>
+    <%= f.label :code %>(编码自动生成)<br />
+    <%= f.text_field :code, :value => @code %>
   </p>
   <p>
     <%= f.label :name %><br />
@@ -24,6 +24,9 @@
     <%= f.text_area :remarks %>
   </p>
   <p>
+  <p class='hidden'>
+    <%= f.label :code_rule_id, "code_rule_id" %>(编码规则id)<%= f.text_field :code_rule_id %> <!-- 隐藏区域：记录与编码规则表的关联id -->
+  </p>
     <%= f.submit "Create" %>
   </p>
 <% end %>

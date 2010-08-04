@@ -1,2 +1,7 @@
 
 ruby script/generate tmscaffold code_rule table_name:string field_name:string title:string seq:integer seq_len:integer step:integer rule_type:string remarks:text
+
+ruby script/generate migration add_code_rule_id_to_rordemos
+
+
+

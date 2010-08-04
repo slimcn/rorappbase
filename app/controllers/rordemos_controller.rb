@@ -87,6 +87,8 @@ class RordemosController < ApplicationController
   # GET /rordemos/new.xml
   def new
     @rordemo = Rordemo.new
+    @code, @code_pre, @code_max_seq, @code_rule_id = CodeRule.code_rules_to_get_code(Rordemo.table_name)
+    @rordemo.code_rule = CodeRule.find_by_id(@code_rule_id)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -105,11 +107,16 @@ class RordemosController < ApplicationController
     @rordemo = Rordemo.new(params[:rordemo])
 
     respond_to do |format|
-      if @rordemo.save
-        flash[:notice] = 'Rordemo was successfully created.'
-        format.html { redirect_to(@rordemo) }
-        format.xml  { render :xml => @rordemo, :status => :created, :location => @rordemo }
-      else
+      begin
+        tmp_code_rule = @rordemo.code_rule
+        Rordemo.transaction do
+          @rordemo.save!
+          tmp_code_rule.save!
+          flash[:notice] = 'Rordemo was successfully created.'
+          format.html { redirect_to(@rordemo) }
+          format.xml  { render :xml => @rordemo, :status => :created, :location => @rordemo }
+        end
+      rescue
         format.html { render :action => "new" }
         format.xml  { render :xml => @rordemo.errors, :status => :unprocessable_entity }
       end
