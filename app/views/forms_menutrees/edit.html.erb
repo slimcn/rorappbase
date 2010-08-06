@@ -1,0 +1,24 @@
+<h1><%= t('Editing'.downcase) %> : <%= t('activerecord.models.forms_menutree') %></h1>
+
+<% form_for(@forms_menutree) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+     <%= f.label :menutree_id, t('activerecord.attributes.forms_menutree.menutree_id') %><br />
+    <%= f.text_field :menutree_id %>
+  </p>
+  <p>
+     <%= f.label :form_id, t('activerecord.attributes.forms_menutree.form_id') %><br />
+    <%= f.text_field :form_id %>
+  </p>
+  <p>
+     <%= f.label :remarks, t('activerecord.attributes.forms_menutree.remarks') %><br />
+    <%= f.text_area :remarks %>
+  </p>
+  <p>
+    <%= f.submit t('Update'.downcase) %>
+  </p>
+<% end %>
+
+<%= link_to t('Show'.downcase), @forms_menutree %> |
+<%= link_to t('Back'.downcase), forms_menutrees_path %>

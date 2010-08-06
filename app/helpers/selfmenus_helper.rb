@@ -1,0 +1,2 @@
+module SelfmenusHelper
+end

@@ -1,0 +1,35 @@
+<h1><%= t('New'.downcase) %> : <%= t('activerecord.models.selfmenu') %></h1>
+
+<% form_for(@selfmenu) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :code, t('activerecord.attributes.selfmenu.code') %><br />
+    <%= f.text_field :code %>
+  </p>
+  <p>
+    <%= f.label :name, t('activerecord.attributes.selfmenu.name') %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :parent_id, t('activerecord.attributes.selfmenu.parent_id') %><br />
+    <%= f.text_field :parent_id %>
+  </p>
+  <p>
+    <%= f.label :rec_type, t('activerecord.attributes.selfmenu.rec_type') %><br />
+    <%= f.text_field :rec_type %>
+  </p>
+  <p>
+    <%= f.label :user_id, t('activerecord.attributes.selfmenu.user_id') %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :remarks, t('activerecord.attributes.selfmenu.remarks') %><br />
+    <%= f.text_area :remarks %>
+  </p>
+  <p>
+    <%= f.submit t('Create'.downcase) %>
+  </p>
+<% end %>
+
+<%= link_to t('Back'.downcase), selfmenus_path %>

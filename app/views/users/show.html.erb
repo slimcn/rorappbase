@@ -1,0 +1,20 @@
+<h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.user') %></h1>
+
+<p>
+  <b><%= t('activerecord.attributes.user.Name'.downcase) %>:</b>
+  <%=h @user.name %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.user.Password'.downcase) %>:</b>
+  <%=h @user.password %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.user.Remarks'.downcase) %>:</b>
+  <%=h @user.remarks %>
+</p>
+
+
+<%= link_to t('Edit'.downcase), edit_user_path(@user) %> |
+<%= link_to t('Back'.downcase), users_path %>

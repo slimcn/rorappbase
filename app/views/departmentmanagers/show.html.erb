@@ -1,0 +1,20 @@
+<h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.departmentmanager') %></h1>
+
+<p>
+  <b><%= t('activerecord.attributes.departmentmanager.Department'.downcase) %>:</b>
+  <%=h @departmentmanager.department_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.departmentmanager.Employe'.downcase) %>:</b>
+  <%=h @departmentmanager.employe_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.departmentmanager.Remarks'.downcase) %>:</b>
+  <%=h @departmentmanager.remarks %>
+</p>
+
+
+<%= link_to t('Edit'.downcase), edit_departmentmanager_path(@departmentmanager) %> |
+<%= link_to t('Back'.downcase), departmentmanagers_path %>

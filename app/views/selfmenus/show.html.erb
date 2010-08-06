@@ -1,0 +1,35 @@
+<h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.selfmenu') %></h1>
+
+<p>
+  <b><%= t('activerecord.attributes.selfmenu.Code'.downcase) %>:</b>
+  <%=h @selfmenu.code %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.selfmenu.Name'.downcase) %>:</b>
+  <%=h @selfmenu.name %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.selfmenu.Parent'.downcase) %>:</b>
+  <%=h @selfmenu.parent_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.selfmenu.Rec type'.downcase) %>:</b>
+  <%=h @selfmenu.rec_type %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.selfmenu.User'.downcase) %>:</b>
+  <%=h @selfmenu.user_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.selfmenu.Remarks'.downcase) %>:</b>
+  <%=h @selfmenu.remarks %>
+</p>
+
+
+<%= link_to t('Edit'.downcase), edit_selfmenu_path(@selfmenu) %> |
+<%= link_to t('Back'.downcase), selfmenus_path %>

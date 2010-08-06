@@ -205,6 +205,21 @@ zh_CN:
     models:
       code_rule: "编码规则"
       rordemo: "应用演示"
+      menutree: "菜单树"
+      form: "表单"
+      forms_menutree: "菜单树表单"
+      selfmenu: "自定义菜单树"
+      forms_selfmenu: "自定义菜单树表单"
+      field: "数据库字段"
+      operation: "操作"
+      role: "角色"
+      operations_role: "角色操作"
+      user: "用户"
+      roles_user: "用户角色"
+      department: "部门"
+      employe: "雇员"
+      departmentmanager: "部门管理者"
+      employes_user: "用户雇员"
 
     attributes:
       code_rule:
@@ -216,11 +231,113 @@ zh_CN:
         step: "步长"
         rule_type: "类型"
         remarks: "备注"
+
       rordemo:
-        code : 编码
-        name : 名称
-        recordtype : 类型
-        status : 状态
-        remarks : 备注
+        code: "编码"
+        name: "名称"
+        recordtype: "类型"
+        status: "状态"
+        remarks: "备注"
+
+      menutree:
+        code: "编码"
+        name: "名称"
+        parent_id: "父节点"
+        remarks: "备注"
+        forms_menutree:
+          menutree_id: "菜单树"
+          form_id: "表单"
+          menutree_id: "菜单树编码"
+          form_code: "表单编码"
+          remarks: "备注"
+
+      form:
+        code: "编码"
+        name: "名称"
+        name_cn: "中文名称"
+        remarks: "备注"
+
+      forms_menutree:
+        menutree_id: "菜单树"
+        form_id: "表单"
+        menutree_code: "菜单树编码"
+        form_code: "表单编码"
+        remarks: "备注"
+
+      selfmenu:
+        code: "编码"
+        name: "名称"
+        parent_id: "父节点"
+        rec_type: "类型"
+        user_id: "所属用户"
+        remarks: "备注"
+
+      forms_selfmenu:
+        selfmenu_id: "自定义菜单树"
+        form_id: "表单"
+        remarks: "备注"
+
+      field:
+        code: "编码"
+        name: "名称"
+        rec_type: "类型"
+        form_id: "所属表单"
+        form_code: "表单编码"
+        name_cn: "中文名称"
+        remarks: "备注"
+
+      operation:
+        code: "编码"
+        name: "名称"
+        rec_type: "类型"
+        parent_id: "父节点"
+        name_cn: "中文名称"
+        url: "路径"
+        remarks: "备注"
+
+      role:
+        code: "编码"
+        name: "名称"
+        context: "备注"
+        remarks: "备注"
+
+      operations_role:
+        role_id: "角色"
+        operation_id: "操作"
+        remarks: "备注"
+
+      user:
+        password: "密码"
+        name: "名称"
+        login: "用户名"
+        email: "邮箱地址"
+        remarks: "备注"
+
+      roles_user:
+        user_id: "用户"
+        role_id: "角色"
+        remarks: "备注"
+
+      department:
+        code: "编码"
+        name: "名称"
+        parent_code: "上级编码"
+        remarks: "备注"
+
+      employe:
+        code: "编码"
+        name: "姓名"
+        department_id: "部门"
+        remarks: "备注"
+
+      departmentmanager:
+        department_id: "部门"
+        employe_id: "姓名"
+        remarks: "备注"
+
+      employes_user:
+        user_id: "用户"
+        employe_id: "雇员"
+        remarks: "备注"
 
 

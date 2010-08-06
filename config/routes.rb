@@ -1,4 +1,34 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :users
+
+  map.resources :forms_selfmenus
+
+  map.resources :employes_users
+
+  map.resources :departmentmanagers
+
+  map.resources :employes
+
+  map.resources :departments
+
+  map.resources :roles_users
+
+  map.resources :operations_roles
+
+  map.resources :roles
+
+  map.resources :operations
+
+  map.resources :selfmenus
+
+  map.resources :fields
+
+  map.resources :forms_menutrees
+
+  map.resources :forms
+
+  map.resources :menutrees
+
   map.resources :code_rules
 
   map.resources :rordemos

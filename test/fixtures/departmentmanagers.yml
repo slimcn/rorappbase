@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  department_id: 1
+  employe_id: 1
+  remarks: MyText
+
+two:
+  department_id: 1
+  employe_id: 1
+  remarks: MyText

@@ -1,0 +1,24 @@
+<h1><%= t('Editing'.downcase) %> : <%= t('activerecord.models.role') %></h1>
+
+<% form_for(@role) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+     <%= f.label :code, t('activerecord.attributes.role.code') %><br />
+    <%= f.text_field :code %>
+  </p>
+  <p>
+     <%= f.label :name, t('activerecord.attributes.role.name') %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+     <%= f.label :remarks, t('activerecord.attributes.role.remarks') %><br />
+    <%= f.text_area :remarks %>
+  </p>
+  <p>
+    <%= f.submit t('Update'.downcase) %>
+  </p>
+<% end %>
+
+<%= link_to t('Show'.downcase), @role %> |
+<%= link_to t('Back'.downcase), roles_path %>

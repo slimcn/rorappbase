@@ -1,0 +1,27 @@
+<h1><%= t('New'.downcase) %> : <%= t('activerecord.models.form') %></h1>
+
+<% form_for(@form) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :code, t('activerecord.attributes.form.code') %><br />
+    <%= f.text_field :code %>
+  </p>
+  <p>
+    <%= f.label :name, t('activerecord.attributes.form.name') %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :name_cn, t('activerecord.attributes.form.name_cn') %><br />
+    <%= f.text_field :name_cn %>
+  </p>
+  <p>
+    <%= f.label :remarks, t('activerecord.attributes.form.remarks') %><br />
+    <%= f.text_area :remarks %>
+  </p>
+  <p>
+    <%= f.submit t('Create'.downcase) %>
+  </p>
+<% end %>
+
+<%= link_to t('Back'.downcase), forms_path %>

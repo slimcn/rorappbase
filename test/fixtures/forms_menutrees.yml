@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  menutree_id: 1
+  form_id: 1
+  remarks: MyText
+
+two:
+  menutree_id: 1
+  form_id: 1
+  remarks: MyText

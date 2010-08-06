@@ -1,0 +1,25 @@
+<h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.form') %></h1>
+
+<p>
+  <b><%= t('activerecord.attributes.form.Code'.downcase) %>:</b>
+  <%=h @form.code %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.form.Name'.downcase) %>:</b>
+  <%=h @form.name %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.form.Name cn'.downcase) %>:</b>
+  <%=h @form.name_cn %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.form.Remarks'.downcase) %>:</b>
+  <%=h @form.remarks %>
+</p>
+
+
+<%= link_to t('Edit'.downcase), edit_form_path(@form) %> |
+<%= link_to t('Back'.downcase), forms_path %>

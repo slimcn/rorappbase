@@ -1,0 +1,40 @@
+<h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.operation') %></h1>
+
+<p>
+  <b><%= t('activerecord.attributes.operation.Code'.downcase) %>:</b>
+  <%=h @operation.code %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.operation.Rec type'.downcase) %>:</b>
+  <%=h @operation.rec_type %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.operation.Name'.downcase) %>:</b>
+  <%=h @operation.name %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.operation.Parent'.downcase) %>:</b>
+  <%=h @operation.parent_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.operation.Name cn'.downcase) %>:</b>
+  <%=h @operation.name_cn %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.operation.Url'.downcase) %>:</b>
+  <%=h @operation.url %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.operation.Remarks'.downcase) %>:</b>
+  <%=h @operation.remarks %>
+</p>
+
+
+<%= link_to t('Edit'.downcase), edit_operation_path(@operation) %> |
+<%= link_to t('Back'.downcase), operations_path %>

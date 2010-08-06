@@ -1,7 +1,25 @@
+* rorappbase command
 
-ruby script/generate tmscaffold code_rule table_name:string field_name:string title:string seq:integer seq_len:integer step:integer rule_type:string remarks:text
-
+** auto code
+ruby script/generate tmscaffold CodeRule table_name:string field_name:string title:string seq:integer seq_len:integer step:integer rule_type:string remarks:text
 ruby script/generate migration add_code_rule_id_to_rordemos
 
+** rbac
+ruby script/generate tmscaffold Menutree code:string name:string parent_id:integer remarks:text
+ruby script/generate tmscaffold Form code:string name:string name_cn:string remarks:text
+ruby script/generate tmscaffold FormsMenutree menutree_id:integer form_id:integer remarks:text
+ruby script/generate tmscaffold Field code:string name:string rec_type:string form_id:integer name_cn:string remarks:text
+ruby script/generate tmscaffold Selfmenu code:string name:string parent_id:integer rec_type:string user_id:integer remarks:text
+ruby script/generate tmscaffold FormsSelfmenu selfmenu_id:integer form_id:integer remarks:text
 
+ruby script/generate tmscaffold Operation code:string rec_type:string name:string parent_id:integer name_cn:string url:string remarks:text
+ruby script/generate tmscaffold Role code:string name:string remarks:text
+ruby script/generate tmscaffold OperationsRoles role_id:integer operation_id:integer remarks:text
+#ruby script/generate tmscaffold User name:string password:string remarks:text
+ruby script/generate tmscaffold RolesUsers user_id:integer role_id:integer remarks:text
+
+ruby script/generate tmscaffold Department code:string name:string parent_code:string remarks:text
+ruby script/generate tmscaffold Employe code:strng name:string department_id:integer remarks:text
+ruby script/generate tmscaffold Departmentmanager department_id:integer employe_id:integer remarks:text
+ruby script/generate tmscaffold EmployesUser user_id:integer employe_id:integer remarks:text
 

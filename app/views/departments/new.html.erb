@@ -1,0 +1,27 @@
+<h1><%= t('New'.downcase) %> : <%= t('activerecord.models.department') %></h1>
+
+<% form_for(@department) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :code, t('activerecord.attributes.department.code') %><br />
+    <%= f.text_field :code %>
+  </p>
+  <p>
+    <%= f.label :name, t('activerecord.attributes.department.name') %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :parent_code, t('activerecord.attributes.department.parent_code') %><br />
+    <%= f.text_field :parent_code %>
+  </p>
+  <p>
+    <%= f.label :remarks, t('activerecord.attributes.department.remarks') %><br />
+    <%= f.text_area :remarks %>
+  </p>
+  <p>
+    <%= f.submit t('Create'.downcase) %>
+  </p>
+<% end %>
+
+<%= link_to t('Back'.downcase), departments_path %>

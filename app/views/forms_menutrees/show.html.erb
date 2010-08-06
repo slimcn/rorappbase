@@ -1,0 +1,20 @@
+<h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.forms_menutree') %></h1>
+
+<p>
+  <b><%= t('activerecord.attributes.forms_menutree.Menutree'.downcase) %>:</b>
+  <%=h @forms_menutree.menutree_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.forms_menutree.Form'.downcase) %>:</b>
+  <%=h @forms_menutree.form_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.forms_menutree.Remarks'.downcase) %>:</b>
+  <%=h @forms_menutree.remarks %>
+</p>
+
+
+<%= link_to t('Edit'.downcase), edit_forms_menutree_path(@forms_menutree) %> |
+<%= link_to t('Back'.downcase), forms_menutrees_path %>
