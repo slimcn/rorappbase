@@ -14,9 +14,9 @@ ruby script/generate tmscaffold FormsSelfmenu selfmenu_id:integer form_id:intege
 
 ruby script/generate tmscaffold Operation code:string rec_type:string name:string parent_id:integer name_cn:string url:string remarks:text
 ruby script/generate tmscaffold Role code:string name:string remarks:text
-ruby script/generate tmscaffold OperationsRoles role_id:integer operation_id:integer remarks:text
-#ruby script/generate tmscaffold User name:string password:string remarks:text
-ruby script/generate tmscaffold RolesUsers user_id:integer role_id:integer remarks:text
+ruby script/generate tmscaffold OperationsRole role_id:integer operation_id:integer remarks:text
+ruby script/generate tmscaffold User name:string password:string remarks:text
+ruby script/generate tmscaffold RolesUser user_id:integer role_id:integer remarks:text
 
 ruby script/generate tmscaffold Department code:string name:string parent_code:string remarks:text
 ruby script/generate tmscaffold Employe code:strng name:string department_id:integer remarks:text
