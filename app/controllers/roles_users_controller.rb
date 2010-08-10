@@ -18,7 +18,7 @@ class RolesUsersController < ApplicationController
   def post_data
     # It's of course your role to add security / validation here
     if params[:oper] == "del"
-      RolesUsers.find(params[:id]).destroy
+      RolesUser.find(params[:id]).destroy
     else
       @sheet_fields ||= { }
       record_params = { }
@@ -27,9 +27,9 @@ class RolesUsersController < ApplicationController
         record_params[field[:field].to_sym] = params[field[:field].to_sym]
       end
       if params[:id] == "_empty"
-        record = RolesUsers.create(record_params)
+        record = RolesUser.create(record_params)
       else
-        record = RolesUsers.find(params[:id])
+        record = RolesUser.find(params[:id])
         record.update_attributes(record_params)
       end
     end
@@ -51,7 +51,7 @@ class RolesUsersController < ApplicationController
       field_array << field[:field].to_sym
     end
 
-    records = RolesUsers.find(:all ) do |x|
+    records = RolesUser.find(:all ) do |x|
       if params[:_search] == "true"
         field_array.map do |m|
           x.send(m) =~ "%#{params[m]}%" if params[m].present?
@@ -73,7 +73,7 @@ class RolesUsersController < ApplicationController
   # GET /roles_users/1
   # GET /roles_users/1.xml
   def show
-    @roles_users = RolesUsers.find(params[:id])
+    @roles_users = RolesUser.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -84,7 +84,7 @@ class RolesUsersController < ApplicationController
   # GET /roles_users/new
   # GET /roles_users/new.xml
   def new
-    @roles_users = RolesUsers.new
+    @roles_users = RolesUser.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -94,17 +94,17 @@ class RolesUsersController < ApplicationController
 
   # GET /roles_users/1/edit
   def edit
-    @roles_users = RolesUsers.find(params[:id])
+    @roles_users = RolesUser.find(params[:id])
   end
 
   # POST /roles_users
   # POST /roles_users.xml
   def create
-    @roles_users = RolesUsers.new(params[:roles_users])
+    @roles_users = RolesUser.new(params[:roles_users])
 
     respond_to do |format|
       if @roles_users.save
-        flash[:notice] = 'RolesUsers was successfully created.'
+        flash[:notice] = 'RolesUser was successfully created.'
         format.html { redirect_to(@roles_users) }
         format.xml  { render :xml => @roles_users, :status => :created, :location => @roles_users }
       else
@@ -117,11 +117,11 @@ class RolesUsersController < ApplicationController
   # PUT /roles_users/1
   # PUT /roles_users/1.xml
   def update
-    @roles_users = RolesUsers.find(params[:id])
+    @roles_users = RolesUser.find(params[:id])
 
     respond_to do |format|
       if @roles_users.update_attributes(params[:roles_users])
-        flash[:notice] = 'RolesUsers was successfully updated.'
+        flash[:notice] = 'RolesUser was successfully updated.'
         format.html { redirect_to(@roles_users) }
         format.xml  { head :ok }
       else
@@ -134,7 +134,7 @@ class RolesUsersController < ApplicationController
   # DELETE /roles_users/1
   # DELETE /roles_users/1.xml
   def destroy
-    @roles_users = RolesUsers.find(params[:id])
+    @roles_users = RolesUser.find(params[:id])
     @roles_users.destroy
 
     respond_to do |format|

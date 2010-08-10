@@ -18,7 +18,7 @@ class OperationsRolesController < ApplicationController
   def post_data
     # It's of course your role to add security / validation here
     if params[:oper] == "del"
-      OperationsRoles.find(params[:id]).destroy
+      OperationsRole.find(params[:id]).destroy
     else
       @sheet_fields ||= { }
       record_params = { }
@@ -27,9 +27,9 @@ class OperationsRolesController < ApplicationController
         record_params[field[:field].to_sym] = params[field[:field].to_sym]
       end
       if params[:id] == "_empty"
-        record = OperationsRoles.create(record_params)
+        record = OperationsRole.create(record_params)
       else
-        record = OperationsRoles.find(params[:id])
+        record = OperationsRole.find(params[:id])
         record.update_attributes(record_params)
       end
     end
@@ -51,7 +51,7 @@ class OperationsRolesController < ApplicationController
       field_array << field[:field].to_sym
     end
 
-    records = OperationsRoles.find(:all ) do |x|
+    records = OperationsRole.find(:all ) do |x|
       if params[:_search] == "true"
         field_array.map do |m|
           x.send(m) =~ "%#{params[m]}%" if params[m].present?
@@ -73,7 +73,7 @@ class OperationsRolesController < ApplicationController
   # GET /operations_roles/1
   # GET /operations_roles/1.xml
   def show
-    @operations_roles = OperationsRoles.find(params[:id])
+    @operations_roles = OperationsRole.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -84,7 +84,7 @@ class OperationsRolesController < ApplicationController
   # GET /operations_roles/new
   # GET /operations_roles/new.xml
   def new
-    @operations_roles = OperationsRoles.new
+    @operations_roles = OperationsRole.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -94,17 +94,17 @@ class OperationsRolesController < ApplicationController
 
   # GET /operations_roles/1/edit
   def edit
-    @operations_roles = OperationsRoles.find(params[:id])
+    @operations_roles = OperationsRole.find(params[:id])
   end
 
   # POST /operations_roles
   # POST /operations_roles.xml
   def create
-    @operations_roles = OperationsRoles.new(params[:operations_roles])
+    @operations_roles = OperationsRole.new(params[:operations_roles])
 
     respond_to do |format|
       if @operations_roles.save
-        flash[:notice] = 'OperationsRoles was successfully created.'
+        flash[:notice] = 'OperationsRole was successfully created.'
         format.html { redirect_to(@operations_roles) }
         format.xml  { render :xml => @operations_roles, :status => :created, :location => @operations_roles }
       else
@@ -117,11 +117,11 @@ class OperationsRolesController < ApplicationController
   # PUT /operations_roles/1
   # PUT /operations_roles/1.xml
   def update
-    @operations_roles = OperationsRoles.find(params[:id])
+    @operations_roles = OperationsRole.find(params[:id])
 
     respond_to do |format|
       if @operations_roles.update_attributes(params[:operations_roles])
-        flash[:notice] = 'OperationsRoles was successfully updated.'
+        flash[:notice] = 'OperationsRole was successfully updated.'
         format.html { redirect_to(@operations_roles) }
         format.xml  { head :ok }
       else
@@ -134,7 +134,7 @@ class OperationsRolesController < ApplicationController
   # DELETE /operations_roles/1
   # DELETE /operations_roles/1.xml
   def destroy
-    @operations_roles = OperationsRoles.find(params[:id])
+    @operations_roles = OperationsRole.find(params[:id])
     @operations_roles.destroy
 
     respond_to do |format|
