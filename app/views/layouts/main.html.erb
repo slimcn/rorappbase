@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>rorappbase</title>
+
+  <%= javascript_include_tag "jstree/jquery" %>
+  <%= javascript_include_tag "jstree/jquery.cookie.js" %>
+  <%= javascript_include_tag "jstree/jquery.hotkeys.js" %>
+  <%= javascript_include_tag "jstree/jquery.jstree.js"%>
+
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+</head>
+<body>
+
+  <div id="div-header">
+    <h1>rorappbase</h1>
+    <h2>User: <%= "[#{@current_user[:login]}]" if @current_user %></h2>
+  </div>
+  <div id="div-nav-h">
+    <ul>
+    </ul>
+  </div>
+  <div id="wrap">
+    <div id="div-nav-title">
+      <% if flash[:notice] -%>
+        <div id="notice"><%= flash[:notice] %></div>
+      <% end -%>
+    </div>
+  </div>
+  <div id="div-footer">
+  </div>
+  <div id="menutree-form">
+    <%= yield %>
+  </div>
+</body>
+</html>
+

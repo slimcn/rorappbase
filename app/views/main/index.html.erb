@@ -1,0 +1,30 @@
+<div id="demo1" class="demo">    </div>
+<script type="text/javascript">
+  $(function () {
+    $.jstree._themes = "/stylesheets/jstree_themes/"                 //这里按照你自己jstree的位置进行配置，
+    $("#demo1").jstree({
+      "plugins" : [ "themes", "json_data", "ui", "cookies", "search", "types", "hotkeys"],                                            //配置jstree的各种插件，呵呵，这里配全了。
+      json_data : {                                         //配置json_data这个插件。
+        "ajax" : {                                             //配置采用ajax方式获取数据
+          "url":"/main/get_tree",              //与远端服务器发生关系，需要明确调用远端的控制器和action，分别为regions和get_tree
+          "data"  : function  (n) {                          //点击节点之后，向服务器送出去的数据。这里仅仅搜出去的是树节点的id值，实际上对应的是region的id。
+            return { id : n.attr ? n.attr("id").replace("node_","") : false, type : n.attr ? n.attr("type").replace("node_","") : false};
+          }
+        }
+      }
+    });
+  });
+
+$(document).ready(function(){
+  $("#demo1").mouseover(function(){a1();});
+
+  function a1() {
+    $('.file a').unbind("click.a1");
+    $('.file a').bind("click.a1",function(){
+    var href = $(this).attr('href');
+    window.open(href, "_blank");
+    });
+  }
+});
+</script>
+
