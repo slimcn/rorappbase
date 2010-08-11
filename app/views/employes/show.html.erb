@@ -11,8 +11,8 @@
 </p>
 
 <p>
-  <b><%= t('activerecord.attributes.employe.Department'.downcase) %>:</b>
-  <%=h @employe.department_id %>
+  <b><%= t('activerecord.attributes.employe.Department_id'.downcase) %>:</b>
+  <%=h @employe.department.code+@employe.department.name %>
 </p>
 
 <p>

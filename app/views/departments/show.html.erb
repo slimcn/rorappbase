@@ -11,8 +11,13 @@
 </p>
 
 <p>
-  <b><%= t('activerecord.attributes.department.Parent code'.downcase) %>:</b>
-  <%=h @department.parent_code %>
+  <b><%= t('activerecord.attributes.department.Parent_id'.downcase) %>:</b>
+  <%=h @department.parent_id %>
+</p>
+
+<p class='hidden'>
+  <b><%= t('activerecord.attributes.department.incode'.downcase) %>:</b>
+  <%=h @department.incode %>
 </p>
 
 <p>

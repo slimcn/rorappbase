@@ -1,13 +1,13 @@
 <h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.departmentmanager') %></h1>
 
 <p>
-  <b><%= t('activerecord.attributes.departmentmanager.Department'.downcase) %>:</b>
-  <%=h @departmentmanager.department_id %>
+  <b><%= t('activerecord.attributes.departmentmanager.Department_id'.downcase) %>:</b>
+  <%=h @departmentmanager.department.code+@departmentmanager.department.name %>
 </p>
 
 <p>
-  <b><%= t('activerecord.attributes.departmentmanager.Employe'.downcase) %>:</b>
-  <%=h @departmentmanager.employe_id %>
+  <b><%= t('activerecord.attributes.departmentmanager.Employe_id'.downcase) %>:</b>
+  <%=h @departmentmanager.employe.code+@departmentmanager.employe.name %>
 </p>
 
 <p>

@@ -12,8 +12,8 @@
     <%= f.text_field :name %>
   </p>
   <p>
-     <%= f.label :parent_code, t('activerecord.attributes.department.parent_code') %><br />
-    <%= f.text_field :parent_code %>
+     <%= f.label :parent_id, t('activerecord.attributes.department.parent_id') %><br />
+    <%= f.select :parent_id, Department.find(:all, :conditions => "1=1", :order => "code").collect {|p| [p.code+p.name, p.id]}, {:include_blank=>true,:index=>''} %>
   </p>
   <p>
      <%= f.label :remarks, t('activerecord.attributes.department.remarks') %><br />

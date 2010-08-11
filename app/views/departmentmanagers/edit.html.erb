@@ -4,12 +4,12 @@
   <%= f.error_messages %>
 
   <p>
-     <%= f.label :department_id, t('activerecord.attributes.departmentmanager.department_id') %><br />
-    <%= f.text_field :department_id %>
+    <%= f.label :department_id, t('activerecord.attributes.departmentmanager.department_id') %><br />
+    <%= f.select :department_id, Department.all(:order => "code").collect {|p| [p.code+p.name, p.id]}, {:include_blank=>false, :index => ''} %>
   </p>
   <p>
-     <%= f.label :employe_id, t('activerecord.attributes.departmentmanager.employe_id') %><br />
-    <%= f.text_field :employe_id %>
+    <%= f.label :employe_id, t('activerecord.attributes.departmentmanager.employe_id') %><br />
+    <%= f.select :employe_id, Employe.all(:order => "code").collect {|p| [p.code+p.name, p.id]}, {:include_blank=>false, :index => ''} %>
   </p>
   <p>
      <%= f.label :remarks, t('activerecord.attributes.departmentmanager.remarks') %><br />

@@ -322,6 +322,8 @@ zh_CN:
         code: "编码"
         name: "名称"
         parent_code: "上级编码"
+        parent_id: "上级部门"
+        incode: "内联码"
         remarks: "备注"
 
       employe:

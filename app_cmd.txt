@@ -18,7 +18,7 @@ ruby script/generate tmscaffold OperationsRole role_id:integer operation_id:inte
 ruby script/generate tmscaffold User name:string password:string remarks:text
 ruby script/generate tmscaffold RolesUser user_id:integer role_id:integer remarks:text
 
-ruby script/generate tmscaffold Department code:string name:string parent_code:string remarks:text
+ruby script/generate tmscaffold Department code:string name:string parent_id:integer incode:string remarks:text
 ruby script/generate tmscaffold Employe code:strng name:string department_id:integer remarks:text
 ruby script/generate tmscaffold Departmentmanager department_id:integer employe_id:integer remarks:text
 ruby script/generate tmscaffold EmployesUser user_id:integer employe_id:integer remarks:text

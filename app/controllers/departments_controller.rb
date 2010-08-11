@@ -8,12 +8,13 @@ class DepartmentsController < ApplicationController
                       }
     @sheet_fields = [{ :field => 'code', :width => 80, :editable => true},
                      { :field => 'name', :width => 80, :editable => true},
-                     { :field => 'parent_code', :width => 80, :editable => true},
+                     { :field => 'parent_id', :width => 80, :editable => true},
+                     { :field => 'incode', :width => 80, :editable => true},
                      { :field => 'remarks', :width => 80, :editable => true}]
     @sheet_detail_fields = ''
-    @sheet_fields_no_id = ":code, :name, :parent_code, :remarks"
-    @sheet_fields_no_id_params = ":code => params[:code], :name => params[:name], :parent_code => params[:parent_code], :remarks => params[:remarks]"
-    @sheet_fields_type = "code:text_field name:text_field parent_code:text_field remarks:text_area "
+    @sheet_fields_no_id = ":code, :name, :parent_id, :incode, :remarks"
+    @sheet_fields_no_id_params = ":code => params[:code], :name => params[:name], :parent_id => params[:parent_id], :incode => params[:incode], :remarks => params[:remarks]"
+    @sheet_fields_type = "code:text_field name:text_field parent_id:select incode:text_field remarks:text_area "
   end
 
   def post_data
@@ -102,6 +103,8 @@ class DepartmentsController < ApplicationController
   # POST /departments.xml
   def create
     @department = Department.new(params[:department])
+    rec_parent = Department.find(params[:department][:parent_id]) unless params[:department][:parent_id].blank?
+    @department.incode = rec_parent.blank? ? params[:department][:code] : rec_parent.incode + params[:department][:code]
 
     respond_to do |format|
       if @department.save
@@ -119,6 +122,8 @@ class DepartmentsController < ApplicationController
   # PUT /departments/1.xml
   def update
     @department = Department.find(params[:id])
+    rec_parent = Department.find(params[:department][:parent_id]) unless params[:department][:parent_id].blank?
+    @department.incode = rec_parent.blank? ? params[:department][:code] : rec_parent.incode + params[:department][:code]
 
     respond_to do |format|
       if @department.update_attributes(params[:department])

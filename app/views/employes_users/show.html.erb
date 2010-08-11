@@ -1,13 +1,13 @@
 <h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.employes_user') %></h1>
 
 <p>
-  <b><%= t('activerecord.attributes.employes_user.User'.downcase) %>:</b>
-  <%=h @employes_user.user_id %>
+  <b><%= t('activerecord.attributes.employes_user.User_id'.downcase) %>:</b>
+  <%=h @employes_user.user.name %>
 </p>
 
 <p>
-  <b><%= t('activerecord.attributes.employes_user.Employe'.downcase) %>:</b>
-  <%=h @employes_user.employe_id %>
+  <b><%= t('activerecord.attributes.employes_user.Employe_id'.downcase) %>:</b>
+  <%=h @employes_user.employe.code + @employes_user.employe.name %>
 </p>
 
 <p>

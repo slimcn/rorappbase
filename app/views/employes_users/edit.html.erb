@@ -4,12 +4,12 @@
   <%= f.error_messages %>
 
   <p>
-     <%= f.label :user_id, t('activerecord.attributes.employes_user.user_id') %><br />
-    <%= f.text_field :user_id %>
+    <%= f.label :user_id, t('activerecord.attributes.employes_user.user_id') %><br />
+    <%= f.select :user_id, User.find(:all, :order=>"name").collect {|p| [p.name, p.id]} %>
   </p>
   <p>
-     <%= f.label :employe_id, t('activerecord.attributes.employes_user.employe_id') %><br />
-    <%= f.text_field :employe_id %>
+    <%= f.label :employe_id, t('activerecord.attributes.employes_user.employe_id') %><br />
+    <%= f.select :employe_id, Employe.find(:all, :order=>"code").collect {|p| [p.code+p.name, p.id]} %>
   </p>
   <p>
      <%= f.label :remarks, t('activerecord.attributes.employes_user.remarks') %><br />
