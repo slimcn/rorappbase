@@ -10,6 +10,11 @@
   <%=h @user.password %>
 </p>
 
+  <p>
+    <b><%= t('activerecord.attributes.user.employe_id'.downcase) %>:</b>
+    <%=h @user.employe.code+@user.employe.name %>
+  </p>
+
 <p>
   <b><%= t('activerecord.attributes.user.Remarks'.downcase) %>:</b>
   <%=h @user.remarks %>

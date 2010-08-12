@@ -8,11 +8,12 @@ class UsersController < ApplicationController
                       }
     @sheet_fields = [{ :field => 'name', :width => 80, :editable => true},
                      { :field => 'password', :width => 80, :editable => true},
+                     { :field => 'employe_id', :width => 80, :editable => true},
                      { :field => 'remarks', :width => 80, :editable => true}]
     @sheet_detail_fields = ''
-    @sheet_fields_no_id = ":name, :password, :remarks"
-    @sheet_fields_no_id_params = ":name => params[:name], :password => params[:password], :remarks => params[:remarks]"
-    @sheet_fields_type = "name:text_field password:text_field remarks:text_area "
+    @sheet_fields_no_id = ":name, :password, :employe_id, :remarks"
+    @sheet_fields_no_id_params = ":name => params[:name], :password => params[:password], :employe_id => params[:employe_id], :remarks => params[:remarks]"
+    @sheet_fields_type = "name:text_field password:text_field employe_id:select remarks:text_area "
   end
 
   def post_data

@@ -311,6 +311,7 @@ zh_CN:
         name: "名称"
         login: "用户名"
         email: "邮箱地址"
+        employe_id: "雇员"
         remarks: "备注"
 
       roles_user:

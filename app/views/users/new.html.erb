@@ -12,6 +12,10 @@
     <%= f.text_field :password %>
   </p>
   <p>
+    <%= f.label :employe_id, t('activerecord.attributes.employe_id') %><br />
+    <%= f.select :employe_id, Employe.all(:order=>"code").collect {|p| [p.code+p.name, p.id]}, {:include_blank=>true, :index=>""} %>
+  </p>
+  <p>
     <%= f.label :remarks, t('activerecord.attributes.user.remarks') %><br />
     <%= f.text_area :remarks %>
   </p>
