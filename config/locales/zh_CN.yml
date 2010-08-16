@@ -309,10 +309,11 @@ zh_CN:
       user:
         password: "密码"
         name: "名称"
-        login: "用户名"
+        login: "登录名"
         email: "邮箱地址"
         employe_id: "雇员"
         remarks: "备注"
+        confirm_password: "确认密码"
 
       roles_user:
         user_id: "用户"

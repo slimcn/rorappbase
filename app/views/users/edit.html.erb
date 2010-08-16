@@ -11,8 +11,11 @@
      <%= f.label :password, t('activerecord.attributes.user.password') %><br />
     <%= f.text_field :password %>
   </p>
-  <p>
-    <%= f.label :employe_id, t('activerecord.attributes.employe_id') %><br />
+<p><%= f.label :password_confirmation, t('activerecord.attributes.user.Confirm_Password'.downcase) %><br/>
+<%= f.password_field :password_confirmation %></p>
+
+<p>
+    <%= f.label :employe_id, t('activerecord.attributes.user.employe_id') %><br />
     <%= f.select :employe_id, Employe.all(:order=>"code").collect {|p| [p.code+p.name, p.id]}, {:include_blank=>true, :index=>""} %>
   </p>
   <p>

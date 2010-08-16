@@ -1,27 +1,31 @@
 <h1><%= t('New'.downcase) %> : <%= t('activerecord.models.user') %></h1>
+<% @user.password = @user.password_confirmation = nil %>
 
-<% form_for(@user) do |f| %>
-  <%= f.error_messages %>
+<%= error_messages_for :user %>
+<% form_for :user, :url => users_path do |f| -%>
+<p><%= f.label :login %><br/>
+<%= f.text_field :login %></p>
 
-  <p>
-    <%= f.label :name, t('activerecord.attributes.user.name') %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :password, t('activerecord.attributes.user.password') %><br />
-    <%= f.text_field :password %>
-  </p>
-  <p>
-    <%= f.label :employe_id, t('activerecord.attributes.employe_id') %><br />
+<p><%= f.label :name %><br/>
+<%= f.text_field :name %></p>
+
+<p><%= f.label :email %><br/>
+<%= f.text_field :email %></p>
+
+<p><%= f.label :password %><br/>
+<%= f.password_field :password %></p>
+
+<p><%= f.label :password_confirmation, t('activerecord.attributes.user.Confirm_Password'.downcase) %><br/>
+<%= f.password_field :password_confirmation %></p>
+
+<p>
+    <%= f.label :employe_id, t('activerecord.attributes.user.employe_id') %><br />
     <%= f.select :employe_id, Employe.all(:order=>"code").collect {|p| [p.code+p.name, p.id]}, {:include_blank=>true, :index=>""} %>
   </p>
-  <p>
-    <%= f.label :remarks, t('activerecord.attributes.user.remarks') %><br />
-    <%= f.text_area :remarks %>
-  </p>
+
   <p>
     <%= f.submit t('Create'.downcase) %>
   </p>
-<% end %>
+<% end -%>
 
-<%= link_to t('Back'.downcase), users_path %>
+<%= link_to t('Back'.downcase), employes_path %>

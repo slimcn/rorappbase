@@ -1,19 +1,24 @@
-# -*- coding: utf-8 -*-
 class UsersController < ApplicationController
-   before_filter :init_sheet
+  # Be sure to include AuthenticationSystem in Application Controller instead
+  include AuthenticatedSystem
+
+  skip_before_filter :login_required
+
+  before_filter :init_sheet
 
   def init_sheet
     @sheet_options = {'name' => "User",
                       "edit_form_type" => "multi_model"
                       }
-    @sheet_fields = [{ :field => 'name', :width => 80, :editable => true},
+    @sheet_fields = [{ :field => 'login', :width => 80, :editable => true},
+                     { :field => 'name', :width => 80, :editable => true},
                      { :field => 'password', :width => 80, :editable => true},
                      { :field => 'employe_id', :width => 80, :editable => true},
                      { :field => 'remarks', :width => 80, :editable => true}]
     @sheet_detail_fields = ''
-    @sheet_fields_no_id = ":name, :password, :employe_id, :remarks"
-    @sheet_fields_no_id_params = ":name => params[:name], :password => params[:password], :employe_id => params[:employe_id], :remarks => params[:remarks]"
-    @sheet_fields_type = "name:text_field password:text_field employe_id:select remarks:text_area "
+    @sheet_fields_no_id = ":login, :name, :password, :employe_id, :remarks"
+    @sheet_fields_no_id_params = ":login => params[:login], :name => params[:name], :password => params[:password], :employe_id => params[:employe_id], :remarks => params[:remarks]"
+    @sheet_fields_type = "login:text_field name:text_field password:text_field employe_id:select remarks:text_area "
   end
 
   def post_data
@@ -70,6 +75,28 @@ class UsersController < ApplicationController
     end
   end
 
+  # render new.rhtml
+  def new
+    @user = User.new
+  end
+
+  def create
+    logout_keeping_session!
+    @user = User.new(params[:user])
+    success = @user && @user.save
+    if success && @user.errors.empty?
+            # Protects against session fixation attacks, causes request forgery
+      # protection if visitor resubmits an earlier form using back
+      # button. Uncomment if you understand the tradeoffs.
+      # reset session
+      self.current_user = @user # !! now logged in
+      redirect_back_or_default('/')
+              flash[:notice] = I18n.t(:signup_complete)
+    else
+      flash[:error]  = I18n.t(:signup_problem)
+      render :action => 'new'
+    end
+  end
 
   # GET /users/1
   # GET /users/1.xml
@@ -82,37 +109,9 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/new
-  # GET /users/new.xml
-  def new
-    @user = User.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @user }
-    end
-  end
-
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
-  end
-
-  # POST /users
-  # POST /users.xml
-  def create
-    @user = User.new(params[:user])
-
-    respond_to do |format|
-      if @user.save
-        flash[:notice] = 'User was successfully created.'
-        format.html { redirect_to(@user) }
-        format.xml  { render :xml => @user, :status => :created, :location => @user }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-      end
-    end
   end
 
   # PUT /users/1
