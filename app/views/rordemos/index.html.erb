@@ -1,4 +1,8 @@
 
 <h1><%= t("Listing".downcase) %>: <%= t("activerecord.models." + "rordemo") %></h1>
 
+<div id='user-info'>
+  login: <%= @current_user.login %>; user: <%= '['+@current_user.employe.code+']'+@current_user.employe.name %>; user: <%= '['+@current_user.employe.department.code+']'+@current_user.employe.department.name %>
+</div>
+
 <%= jqgrid_index(@sheet_fields) %>
