@@ -89,7 +89,6 @@ class RordemosController < ApplicationController
     @rordemo = Rordemo.new
     @code, @code_pre, @code_max_seq, @code_rule_id = CodeRule.code_rules_to_get_code(Rordemo.table_name)
     @rordemo.code_rule = CodeRule.find_by_id(@code_rule_id)
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @rordemo }
@@ -109,6 +108,7 @@ class RordemosController < ApplicationController
     respond_to do |format|
       begin
         tmp_code_rule = @rordemo.code_rule
+        tmp_code_rule.seq = params[:code_rule][:seq]
         Rordemo.transaction do
           @rordemo.save!
           tmp_code_rule.save!
