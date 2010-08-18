@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   # has_many :employes, :through => :employes_users
   belongs_to :employe
 
+  cattr_accessor :current_user
+
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login

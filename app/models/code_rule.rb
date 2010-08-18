@@ -24,11 +24,15 @@ class CodeRule < ActiveRecord::Base
     code_pre.sub!("[YYYY]",   year[-4,4])
     code_pre.sub!("[MM]",     "0"*(2-month.length)+month)
     code_pre.sub!("[DD]",     "0"*(2-day.length)+day)
-    employe_code = 'aryb' # 人员编码
-    department_code = 'cbmd' # 部门编码
+    employe_code = User.current_user.employe.code # 人员编码
+    employe_code = 'xxxx' if employe_code.blank?
+    department_code = User.current_user.employe.department.code # 部门编码
+    department_code = 'xxxx' if department_code.blank?
+    code_pre.sub!("[E]",     employe_code[-2,2]) # 人员编码1位
     code_pre.sub!("[EE]",     employe_code[-2,2]) # 人员编码2位
     code_pre.sub!("[EEE]",     employe_code[-3,3]) # 人员编码3位
     code_pre.sub!("[EEEE]",   employe_code[-4,4]) # 人员编码4位
+    code_pre.sub!("[P]",     department_code[-2,2]) # 部门编码1位
     code_pre.sub!("[PP]",     department_code[-2,2]) # 部门编码2位
     code_pre.sub!("[PPP]",     department_code[-3,3]) # 部门编码3位
     code_pre.sub!("[PPPP]",     department_code[-4,4]) # 部门编码4位
