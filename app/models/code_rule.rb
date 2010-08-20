@@ -58,7 +58,7 @@ class CodeRule < ActiveRecord::Base
 
   # 检查编码是否重复
   def self.code_rules_to_check_code_equal(obj, field_name, code, rec_id)
-    if rec_id
+    if rec_id and rec_id > 0
       records = obj.find(:all, :conditions => field_name+" = '"+code+"' and id <> "+rec_id)
     else
       records = obj.find(:all, :conditions => field_name+" = '"+code+"'")

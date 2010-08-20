@@ -89,6 +89,9 @@ class RordemosController < ApplicationController
     @rordemo = Rordemo.new
     @code, @code_pre, @code_max_seq, @code_rule_id = CodeRule.code_rules_to_get_code(Rordemo.table_name)
     @rordemo.code_rule = CodeRule.find_by_id(@code_rule_id)
+    @rordemo.code_rule.seq = @code_max_seq
+    set_session_code_rule(@code_rule_id, @code_max_seq)
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @rordemo }
@@ -107,11 +110,12 @@ class RordemosController < ApplicationController
 
     respond_to do |format|
       begin
-        tmp_code_rule = @rordemo.code_rule
-        tmp_code_rule.seq = params[:code_rule][:seq]
         Rordemo.transaction do
           @rordemo.save!
-          tmp_code_rule.save!
+          if session[:code_rule][@rordemo.code_rule_id][:seq] > @rordemo.code_rule.seq
+            @rordemo.code_rule.seq = session[:code_rule][@rordemo.code_rule_id][:seq]
+          end
+          @rordemo.code_rule.save!
           flash[:notice] = 'Rordemo was successfully created.'
           format.html { redirect_to(@rordemo) }
           format.xml  { render :xml => @rordemo, :status => :created, :location => @rordemo }

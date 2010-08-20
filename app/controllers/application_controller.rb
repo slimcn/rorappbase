@@ -50,6 +50,12 @@ class ApplicationController < ActionController::Base
     @current_user ||= (login_from_session || false)
   end
 
+  def set_session_code_rule(id, seq)
+    session[:code_rule] ||= Hash.new
+    session[:code_rule][id] ||= Hash.new
+    session[:code_rule][id][:seq] = seq
+  end
+
   alias :logined_in? :current_user
 
   private
