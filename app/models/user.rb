@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :roles_users, :dependent => :destroy
   has_many :roles, :through => :roles_users
+
   has_many :employes_users, :dependent => :destroy
   # has_many :employes, :through => :employes_users
   belongs_to :employe

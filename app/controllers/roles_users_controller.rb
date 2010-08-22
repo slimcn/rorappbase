@@ -73,43 +73,43 @@ class RolesUsersController < ApplicationController
   # GET /roles_users/1
   # GET /roles_users/1.xml
   def show
-    @roles_users = RolesUser.find(params[:id])
+    @roles_user = RolesUser.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @roles_users }
+      format.xml  { render :xml => @roles_user }
     end
   end
 
   # GET /roles_users/new
   # GET /roles_users/new.xml
   def new
-    @roles_users = RolesUser.new
+    @roles_user = RolesUser.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @roles_users }
+      format.xml  { render :xml => @roles_user }
     end
   end
 
   # GET /roles_users/1/edit
   def edit
-    @roles_users = RolesUser.find(params[:id])
+    @roles_user = RolesUser.find(params[:id])
   end
 
   # POST /roles_users
   # POST /roles_users.xml
   def create
-    @roles_users = RolesUser.new(params[:roles_users])
+    @roles_user = RolesUser.new(params[:roles_user])
 
     respond_to do |format|
-      if @roles_users.save
+      if @roles_user.save
         flash[:notice] = 'RolesUser was successfully created.'
-        format.html { redirect_to(@roles_users) }
-        format.xml  { render :xml => @roles_users, :status => :created, :location => @roles_users }
+        format.html { redirect_to(@roles_user) }
+        format.xml  { render :xml => @roles_user, :status => :created, :location => @roles_user }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @roles_users.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @roles_user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -117,16 +117,16 @@ class RolesUsersController < ApplicationController
   # PUT /roles_users/1
   # PUT /roles_users/1.xml
   def update
-    @roles_users = RolesUser.find(params[:id])
+    @roles_user = RolesUser.find(params[:id])
 
     respond_to do |format|
-      if @roles_users.update_attributes(params[:roles_users])
+      if @roles_user.update_attributes(params[:roles_user])
         flash[:notice] = 'RolesUser was successfully updated.'
-        format.html { redirect_to(@roles_users) }
+        format.html { redirect_to(@roles_user) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @roles_users.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @roles_user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -134,11 +134,11 @@ class RolesUsersController < ApplicationController
   # DELETE /roles_users/1
   # DELETE /roles_users/1.xml
   def destroy
-    @roles_users = RolesUser.find(params[:id])
-    @roles_users.destroy
+    @roles_user = RolesUser.find(params[:id])
+    @roles_user.destroy
 
     respond_to do |format|
-      format.html { redirect_to(roles_users_url) }
+      format.html { redirect_to(roles_user_url) }
       format.xml  { head :ok }
     end
   end

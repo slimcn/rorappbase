@@ -19,14 +19,15 @@ class ApplicationController < ActionController::Base
   before_filter :set_current_user
 
   def login_required
-    @logined = logined_in? # || access_denied
+    @logined = logined_in?
     if not @logined
       redirect_to login_path
       flash[:notice] = nil
     elsif access_denied
+      redirect_to "/" # 重定向到起始页
       flash[:notice] = "访问受限"
     else
-      flash[:notice] = "允许访问"
+      flash[:notice] = nil
     end
   end
 
@@ -34,16 +35,12 @@ class ApplicationController < ActionController::Base
     #redirect_to login_path
     #controller_name action_name params[:id]
     if @current_user
-      ret = auth_controllers(@current_user[:id]).include?(controller_name) && auth_actions(@current_user[:id],controller_name).include?(action_name)
+      ret = auth_controllers(@current_user[:id]).include?(controller_name) &&
+                 auth_actions(@current_user[:id],controller_name).include?(action_name)
     else
       ret = true
     end
-    if ret
-      ret = false
-    else
-      ret = true
-    end
-    return ret
+    return !ret
   end
 
   def current_user
@@ -155,7 +152,8 @@ class ApplicationController < ActionController::Base
   def auth_controllers(user_id)
     ret = []
     rec_operations = []
-    rec_user = User.find(:all, :conditions => "id=" + user_id.to_s)[0]
+    rec_user = []
+    rec_user = User.find(:first, :conditions => "id=" + user_id.to_s)
     if rec_user
       rec_roles = rec_user.roles
     else
@@ -174,6 +172,7 @@ class ApplicationController < ActionController::Base
   def auth_actions(user_id, controller_name)
     ret = []
     rec_operations = []
+    rec_user = []
     rec_user = User.find(:all, :conditions => "id=" + user_id.to_s)[0]
     if rec_user
       rec_roles = rec_user.roles

@@ -1,18 +1,18 @@
-<h1><%= t('New'.downcase) %> : <%= t('activerecord.models.roles_users') %></h1>
+<h1><%= t('New'.downcase) %> : <%= t('activerecord.models.roles_user') %></h1>
 
-<% form_for(@roles_users) do |f| %>
+<% form_for(@roles_user) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :user_id, t('activerecord.attributes.roles_users.user_id') %><br />
+    <%= f.label :user_id, t('activerecord.attributes.roles_user.user_id') %><br />
     <%= f.text_field :user_id %>
   </p>
   <p>
-    <%= f.label :role_id, t('activerecord.attributes.roles_users.role_id') %><br />
+    <%= f.label :role_id, t('activerecord.attributes.roles_user.role_id') %><br />
     <%= f.text_field :role_id %>
   </p>
   <p>
-    <%= f.label :remarks, t('activerecord.attributes.roles_users.remarks') %><br />
+    <%= f.label :remarks, t('activerecord.attributes.roles_user.remarks') %><br />
     <%= f.text_area :remarks %>
   </p>
   <p>
