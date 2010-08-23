@@ -70,6 +70,19 @@ module ActiveRecord
           nodes
         end
 
+	# Returns list of progenies, starting from child until leaf
+	#
+	# root.progenies # => [child1, subchild1, subchild2]
+	def progenies(node, nodes)
+	  node = self unless node
+	  nodes = [] unless nodes
+	  nodes.concat(node.children)
+	  node.children.each do |rec|
+	      progenies(rec, nodes)
+	  end
+	  return nodes
+	end
+
         # Returns the root node of the tree.
         def root
           node = self

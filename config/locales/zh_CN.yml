@@ -238,6 +238,8 @@ zh_CN:
         recordtype: "类型"
         status: "状态"
         remarks: "备注"
+        employe_id: "创建人"
+        department_id: "所属部门"
 
       menutree:
         code: "编码"

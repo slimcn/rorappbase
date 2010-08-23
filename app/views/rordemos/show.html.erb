@@ -23,6 +23,10 @@
   <b>Remarks:</b>
   <%=h @rordemo.remarks %>
 </p>
+<p>
+  <b>Employe</b><%= @rordemo.employe.name %> <br />
+  <b>Department</b><%= @rordemo.department.name %>
+</p>
 
 
 <%= link_to 'Edit', edit_rordemo_path(@rordemo) %> |

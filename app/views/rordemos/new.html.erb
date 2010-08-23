@@ -23,13 +23,12 @@
     <%= f.label :remarks %><br />
     <%= f.text_area :remarks %>
   </p>
-  <p>
   <p class='hidden'>
     <%= f.label :code_rule_id, "code_rule_id" %>(编码规则id)<%= f.text_field :code_rule_id, :value => @code_rule_id %> <!-- 隐藏区域：记录与编码规则表的关联id -->
-    <% fields_for @rordemo.code_rule do |f| -%>
-      <%= f.label :seq, "自动编码序号" %>：<%= f.text_field :seq, :value => @code_max_seq %>
-    <% end -%>
+    <%= f.label :employe_id %><%= f.text_field :employe_id, :value => @employe_id %>
+    <%= f.label :department_id %><%= f.text_field :department_id, :value => @department_id %>
   </p>
+  <p>
     <%= f.submit "Create" %>
   </p>
 <% end %>

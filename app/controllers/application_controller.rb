@@ -23,21 +23,26 @@ class ApplicationController < ActionController::Base
     if not @logined
       redirect_to login_path
       flash[:notice] = nil
-    elsif access_denied
-      redirect_to "/" # 重定向到起始页
+    # elsif access_denied
+    elsif function_denied
+      # redirect_to "/" # 重定向到起始页
       flash[:notice] = "访问受限"
+    elsif id && !user_have_record
+      flash[:notice] = "记录受限"
     else
       flash[:notice] = nil
     end
   end
 
-  def access_denied
+#  def access_denied
+  def function_denied
     #redirect_to login_path
     #controller_name action_name params[:id]
     if @current_user
-      ret = auth_controllers(@current_user[:id]).include?(controller_name) &&
-                 auth_actions(@current_user[:id],controller_name).include?(action_name)
+      ret = auth_controllers(@current_user[:id]).include?(params[:controller]) &&
+        auth_actions(@current_user[:id],params[:controller]).include?(params[:action])
     else
+      # ret = false
       ret = true
     end
     return !ret
@@ -47,6 +52,7 @@ class ApplicationController < ActionController::Base
     @current_user ||= (login_from_session || false)
   end
 
+  # set code_rule in session, it's used in auto code
   def set_session_code_rule(id, seq)
     session[:code_rule] ||= Hash.new
     session[:code_rule][id] ||= Hash.new
@@ -191,6 +197,58 @@ class ApplicationController < ActionController::Base
     return ret
   end
 
+  # User belongs to the department and its fathers
+  def auth_user_belongs_to_departments(user_id)
+    u = User.find(user_id)
+    ds = u.department.ancestors
+    return ds.collect { |rec| rec.id}
+  end
+
+  # User managed departments, return [id1,id2...]
+  def auth_user_managed_departments(user_id)
+    u = User.find(user_id)
+#    arr_depts = u.employe.manageddepartments
+#    u.employe.manageddepartments.each do |node|
+#      node.progenies(node, arr_depts)
+#    end
+    arr_depts = Department.find(:all, :conditions => "incode like '" + u.employe.department.incode + "%'")
+    return arr_depts.collect{|rec| rec.id}
+  end
+
+  # Records conditions limited by employes/departments
+  #   employe can get self's record
+  #   department manager can get self's record and records belongs to managed departments and progenies' departments
+  def auth_records_condition(table_name = "")
+    ret = ""
+    table_pre = table_name.blank? ? '' : table_name + '.'
+    class_name = params[:controller].titleize.sub(' ','').singularize.constantize
+    if class_name.column_names.include?("employe_id")
+      ret += " " + table_pre + "employe_id in (" +  @current_user.employe.id.to_s + ") " 
+    end
+    if class_name.column_names.include?("department_id")
+      str_managed_depart_id = auth_user_managed_departments(@current_user.id).join(',')
+      ret += " or " + table_pre + "department_id in (" + str_managed_depart_id + ")" if not str_managed_depart_id.blank?
+    end
+    ret = "1=1" if ret.blank?
+      
+    return " (" + ret + ") " 
+  end
+
+  def user_have_record(rec_id = nil, user_id=nil)
+    rec_id ||= params[:id]
+    if rec_id
+      user_id ||= @current_user.id
+      class_name = params[:controller].titleize.sub(' ','').singularize.constantize
+      arr_rec = class_name.find(:all, :conditions => "id=" + rec_id.to_s + 
+                           " and " + auth_records_condition)
+      ret = arr_rec.blank?
+    else
+      ret = false
+    end
+    return !ret
+  end
+
+  
   protected
   def set_current_user
     User.current_user = self.current_user

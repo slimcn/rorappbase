@@ -23,6 +23,10 @@
     <%= f.label :remarks %><br />
     <%= f.text_area :remarks %>
   </p>
+  <p class='hidden'>
+    <%= f.label :employe_id %><%= f.text_field :employe_id %>
+    <%= f.label :department_id %><%= f.text_field :department_id %>
+  </p>
   <p>
     <%= f.submit "Update" %>
   </p>

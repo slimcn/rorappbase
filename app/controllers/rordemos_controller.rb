@@ -91,6 +91,8 @@ class RordemosController < ApplicationController
     @rordemo.code_rule = CodeRule.find_by_id(@code_rule_id)
     @rordemo.code_rule.seq = @code_max_seq
     set_session_code_rule(@code_rule_id, @code_max_seq)
+    @employe_id = @current_user.employe_id
+    @department_id = @current_user.employe.department_id
 
     respond_to do |format|
       format.html # new.html.erb
