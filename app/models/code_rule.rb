@@ -32,7 +32,7 @@ class CodeRule < ActiveRecord::Base
     code_pre.sub!("[EE]",     employe_code[-2,2]) # 人员编码2位
     code_pre.sub!("[EEE]",     employe_code[-3,3]) # 人员编码3位
     code_pre.sub!("[EEEE]",   employe_code[-4,4]) # 人员编码4位
-    code_pre.sub!("[P]",     department_code[-2,2]) # 部门编码1位
+    code_pre.sub!("[P]",     department_code[-1,1]) # 部门编码1位
     code_pre.sub!("[PP]",     department_code[-2,2]) # 部门编码2位
     code_pre.sub!("[PPP]",     department_code[-3,3]) # 部门编码3位
     code_pre.sub!("[PPPP]",     department_code[-4,4]) # 部门编码4位

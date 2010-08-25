@@ -73,43 +73,43 @@ class OperationsRolesController < ApplicationController
   # GET /operations_roles/1
   # GET /operations_roles/1.xml
   def show
-    @operations_roles = OperationsRole.find(params[:id])
+    @operations_role = OperationsRole.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @operations_roles }
+      format.xml  { render :xml => @operations_role }
     end
   end
 
   # GET /operations_roles/new
   # GET /operations_roles/new.xml
   def new
-    @operations_roles = OperationsRole.new
+    @operations_role = OperationsRole.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @operations_roles }
+      format.xml  { render :xml => @operations_role }
     end
   end
 
   # GET /operations_roles/1/edit
   def edit
-    @operations_roles = OperationsRole.find(params[:id])
+    @operations_role = OperationsRole.find(params[:id])
   end
 
   # POST /operations_roles
   # POST /operations_roles.xml
   def create
-    @operations_roles = OperationsRole.new(params[:operations_roles])
+    @operations_role = OperationsRole.new(params[:operations_role])
 
     respond_to do |format|
-      if @operations_roles.save
+      if @operations_role.save
         flash[:notice] = 'OperationsRole was successfully created.'
-        format.html { redirect_to(@operations_roles) }
-        format.xml  { render :xml => @operations_roles, :status => :created, :location => @operations_roles }
+        format.html { redirect_to(@operations_role) }
+        format.xml  { render :xml => @operations_role, :status => :created, :location => @operations_role }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @operations_roles.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @operations_role.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -117,16 +117,16 @@ class OperationsRolesController < ApplicationController
   # PUT /operations_roles/1
   # PUT /operations_roles/1.xml
   def update
-    @operations_roles = OperationsRole.find(params[:id])
+    @operations_role = OperationsRole.find(params[:id])
 
     respond_to do |format|
-      if @operations_roles.update_attributes(params[:operations_roles])
+      if @operations_role.update_attributes(params[:operations_role])
         flash[:notice] = 'OperationsRole was successfully updated.'
-        format.html { redirect_to(@operations_roles) }
+        format.html { redirect_to(@operations_role) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @operations_roles.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @operations_role.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -134,8 +134,8 @@ class OperationsRolesController < ApplicationController
   # DELETE /operations_roles/1
   # DELETE /operations_roles/1.xml
   def destroy
-    @operations_roles = OperationsRole.find(params[:id])
-    @operations_roles.destroy
+    @operations_role = OperationsRole.find(params[:id])
+    @operations_role.destroy
 
     respond_to do |format|
       format.html { redirect_to(operations_roles_url) }

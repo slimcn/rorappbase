@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class MenutreesController < ApplicationController
-   before_filter :init_sheet
+  before_filter :init_sheet
 
   def init_sheet
     @sheet_options = {'name' => "Menutree",

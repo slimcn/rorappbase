@@ -138,7 +138,7 @@ class RolesUsersController < ApplicationController
     @roles_user.destroy
 
     respond_to do |format|
-      format.html { redirect_to(roles_user_url) }
+      format.html { redirect_to(roles_users_url) }
       format.xml  { head :ok }
     end
   end

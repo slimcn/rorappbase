@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 
@@ -30,7 +31,7 @@ class ApplicationController < ActionController::Base
     elsif id && !user_have_record
       flash[:notice] = "记录受限"
     else
-      flash[:notice] = nil
+      flash[:notice] = "允许访问"
     end
   end
 
@@ -158,7 +159,6 @@ class ApplicationController < ActionController::Base
   def auth_controllers(user_id)
     ret = []
     rec_operations = []
-    rec_user = []
     rec_user = User.find(:first, :conditions => "id=" + user_id.to_s)
     if rec_user
       rec_roles = rec_user.roles
@@ -178,7 +178,6 @@ class ApplicationController < ActionController::Base
   def auth_actions(user_id, controller_name)
     ret = []
     rec_operations = []
-    rec_user = []
     rec_user = User.find(:all, :conditions => "id=" + user_id.to_s)[0]
     if rec_user
       rec_roles = rec_user.roles
