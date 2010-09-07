@@ -58,7 +58,7 @@ class FormlogsController < ApplicationController
       field_array << field[:field].to_sym
     end
 
-    records = Formlog.find(:all ) do |x|
+    records = Formlog.find(:all, :order => "id desc" ) do |x|
       if params[:_search] == "true"
         field_array.map do |m|
           x.send(m) =~ "%#{params[m]}%" if params[m].present?

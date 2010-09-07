@@ -164,19 +164,26 @@ class RordemosController < ApplicationController
   # PUT /rordemos/1.xml/audit
   def audit
     @rordemo = Rordemo.find(params[:id])
-    @formlog = Formlog.new(params[:formlog])
-
-    @auditflows_form = AuditflowsForm.find(:first, :conditions=>"form_type='"+@formlog.form_type+"' and form_id="+@formlog.form_id.to_s)
-    # 没有审核流程关系(自检)时设定表单审核流程关系
-    @auditflows_form = get_new_auditflows_form(@formlog) if @auditflows_form.blank?
-    # 设定审核操作相关值
-    @formlog.auditflows_flownode = @auditflows_form.auditflows_flownode
-    #报错：can't convert Symbol into String。 @formlog.before_sequence = @auditflows_form.auditflows_flownode.pre_flownode
-    before_sequence = AuditflowsFlownode.pre_flownode(@auditflows_form.auditflows_flownode)
-    @formlog.before_sequence_id = before_sequence #if before_sequence
-    after_sequence = AuditflowsFlownode.next_flownode(@auditflows_form.auditflows_flownode)
-    @formlog.after_sequence_id = after_sequence #if after_sequence
-    @auditflows_form.auditflows_flownode_id = @formlog.after_sequence_id
+      @formlog = Formlog.new(params[:formlog])
+      @auditflows_form = AuditflowsForm.find(:first, :conditions=>"form_type='"+@formlog.form_type+"' and form_id="+@formlog.form_id.to_s)
+      # 没有审核流程关系(自检)时设定表单审核流程关系
+      @auditflows_form = get_new_auditflows_form(@formlog) if @auditflows_form.blank?
+    if @auditflows_form.auditflows_flownode # 判断审核流程是否结束
+      # 设定审核操作相关值
+      @formlog.auditflows_flownode_id = @auditflows_form.auditflows_flownode_id
+      #报错：can't convert Symbol into String。 @formlog.before_sequence = @auditflows_form.auditflows_flownode.pre_flownode
+      before_sequence = AuditflowsFlownode.pre_flownode(@auditflows_form.auditflows_flownode)
+      @formlog.before_sequence_id = before_sequence.id if before_sequence
+      after_sequence = AuditflowsFlownode.next_flownode(@auditflows_form.auditflows_flownode)
+      @formlog.after_sequence_id = after_sequence.id if after_sequence
+      @auditflows_form.auditflows_flownode_id = @formlog.after_sequence_id
+      # @auditflows_form.auditflows_flownode_id = AuditflowsFlownode.next_flownode(@auditflows_form.auditflows_flownode) if @auditflows_form.auditflows_flownode
+      @rordemo.status="6000" if @auditflows_form.auditflows_flownode_id.blank?  # 设置记录状态为审核完成
+    else  # 审核流程已经结束
+      flash[:notice] = "审核流程已结束，请勿重复操作！"
+      render :action => "show"
+      return
+    end
 
     respond_to do |format|
       begin
@@ -195,12 +202,13 @@ class RordemosController < ApplicationController
   end
 
   def get_new_auditflows_form(formlog)
-      @auditflows_form = AuditflowsForm.new()
-      # auditflow = get_auditflow_with_form(formlog.form_type, formlog.form_id)
-      auditflow = Auditflow.find(1)
-      @auditflows_form.form_id, @auditflows_form.form_type, @auditflows_form.auditflow_id = @formlog.form_id, @formlog.form_type, auditflow_id
-      # AuditflowsForm.auditflows_flownode_id 表示下一步将进行的操作
-      @auditflows_form.auditflows_flownode_id = auditflow.auditflows_flownodes[1].id if not auditflow.auditflows_flownodes[1].blank?
+    @auditflows_form = AuditflowsForm.new()
+    # auditflow = get_auditflow_with_form(formlog.form_type, formlog.form_id)
+    auditflow = Auditflow.find(1)
+    @auditflows_form.form_id, @auditflows_form.form_type, @auditflows_form.auditflow_id = @formlog.form_id, @formlog.form_type, auditflow.id
+    # AuditflowsForm.auditflows_flownode_id 表示下一步将进行的操作
+    @auditflows_form.auditflows_flownode_id = auditflow.auditflows_flownodes[0].id if auditflow.auditflows_flownodes
+    return @auditflows_form
   end
 
   # get /rordemos/1/audit_self
