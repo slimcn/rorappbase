@@ -255,8 +255,53 @@ class ApplicationController < ActionController::Base
     return str.titleize.sub(' ','').singularize.constantize
   end
 
+  # 初始化新的表单日志记录
+  def flow_get_new_formlog(form)
+    formlog = Formlog.new
+    formlog.form_id = form.id
+    formlog.form_type = form.class.name
+    formlog.employe_id = @current_user.employe_id
+    formlog.user_id = @current_user.id
+    formlog.status = 0 # 新增状态
+    return formlog
+  end
+  # 获得表单-审核流程对应
+  def flow_get_auditflows_form(formlog)
+    auditflows_form = AuditflowsForm.find(:first, :conditions=>"form_type='"+formlog.form_type+"' and form_id="+formlog.form_id.to_s)
+    auditflows_form = flow_get_new_auditflows_form(formlog) if auditflows_form.blank?
+    return auditflows_form
+  end
+
+  # 赋值表单日志、表单-流程对应关系的状态、记录状态
+  def flow_set_rec_log_and_status(formlog, flow_form, form)
+    formlog.auditflows_flownode_id = flow_form.auditflows_flownode_id # 当前流程点
+    before_sequence = AuditflowsFlownode.pre_flownode(flow_form.auditflows_flownode)
+    formlog.before_sequence_id = before_sequence.id if before_sequence
+    after_sequence = AuditflowsFlownode.next_flownode(flow_form.auditflows_flownode)
+    formlog.after_sequence_id = after_sequence.id if after_sequence
+    flow_form.auditflows_flownode_id = formlog.after_sequence_id # 表单-流程对应中的流程点为下一可用操作
+    if form.attribute_names.include?("status") # 设置记录状态
+      form.status = "1000" if (flow_form.id.blank? || (form.status != "1000")) # 表单-流程关系尚未永久保存，为审核流程开始，则设置记录状态为审核完成
+      form.status = "6000" if flow_form.auditflows_flownode_id.blank? # 无后续流程，则设置记录状态为审核完成
+    end
+    return formlog, flow_form, form
+  end
+
   protected
   def set_current_user
     User.current_user = self.current_user
   end
+
+  private
+  # 获得新的表单-审核流程对应
+  def flow_get_new_auditflows_form(formlog)
+    auditflows_form = AuditflowsForm.new()
+    # auditflow = get_auditflow_with_form(formlog.form_type, formlog.form_id)
+    auditflow = Auditflow.find(1)
+    auditflows_form.form_id, auditflows_form.form_type, auditflows_form.auditflow_id = formlog.form_id, formlog.form_type, auditflow.id
+    # AuditflowsForm.auditflows_flownode_id 表示下一步将进行的操作
+    auditflows_form.auditflows_flownode_id = auditflow.auditflows_flownodes[0].id if auditflow.auditflows_flownodes
+    return auditflows_form
+  end
+
 end
