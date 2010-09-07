@@ -73,6 +73,9 @@ class RordemosController < ApplicationController
     end
   end
 
+  def record_operation_button
+    return [["add","新增"],["update","修改"],["delete","删除"],["show","查看"],["refresh","刷新"],["search","查询"],["audit_self","自检"],["audit_ywjl","业务经理"]]
+  end
 
   # GET /rordemos/1
   # GET /rordemos/1.xml

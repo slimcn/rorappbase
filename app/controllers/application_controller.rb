@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
   before_filter :login_required
   before_filter :set_current_user
 
+  def record_operation_button
+    return [["add","新增"],["update","修改"],["delete","删除"],["show","查看"],["refresh","刷新"],["search","查询"],["audit_self","自检"]]
+  end
+
   def login_required
     @logined = logined_in?
     if not @logined
