@@ -1,0 +1,55 @@
+<h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.formlog') %></h1>
+
+<p>
+  <b><%= t('activerecord.attributes.formlog.form_id'.downcase) %>:</b>
+  <%=h @formlog.form_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.formlog.form_type'.downcase) %>:</b>
+  <%=h @formlog.form_type %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.formlog.status'.downcase) %>:</b>
+  <%=h @formlog.status %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.formlog.content'.downcase) %>:</b>
+  <%=h @formlog.content %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.formlog.auditflows_flownode_id'.downcase) %>:</b>
+  <%=h @formlog.auditflows_flownode_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.formlog.employe_id'.downcase) %>:</b>
+  <%=h @formlog.employe_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.formlog.user_id'.downcase) %>:</b>
+  <%=h @formlog.user_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.formlog.before_sequence_id'.downcase) %>:</b>
+  <%=h @formlog.before_sequence_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.formlog.after_sequence_id'.downcase) %>:</b>
+  <%=h @formlog.after_sequence_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.formlog.remarks'.downcase) %>:</b>
+  <%=h @formlog.remarks %>
+</p>
+
+
+<%= link_to t('Edit'.downcase), edit_formlog_path(@formlog) %> |
+<%= link_to t('Back'.downcase), formlogs_path %>

@@ -1,0 +1,37 @@
+<% form_for(@formlog, :url => {:action=>"audit"}) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :form_id, t('activerecord.attributes.formlog.form_id') %>
+    <%= f.text_field :form_id %>
+    <%= f.label :form_type, t('activerecord.attributes.formlog.form_type') %>
+    <%= f.text_field :form_type %>
+    <%= f.label :status, t('activerecord.attributes.formlog.status') %>
+    <%= f.text_field :status %>
+  </p>
+  <p>
+    <%= f.label :content, t('activerecord.attributes.formlog.content') %>
+    <%= f.text_area :content, :rows => "3", :cols => "100" %>
+  </p>
+  <p>
+    <%= f.label :auditflows_flownode_id, t('activerecord.attributes.formlog.auditflows_flownode_id') %>
+    <%= f.text_field :auditflows_flownode_id %>
+    <%= f.label :before_sequence_id, t('activerecord.attributes.formlog.before_sequence_id') %>
+    <%= f.text_field :before_sequence_id %>
+    <%= f.label :after_sequence_id, t('activerecord.attributes.formlog.after_sequence_id') %>
+    <%= f.text_field :after_sequence_id %>
+  </p>
+  <p>
+    <%= f.label :employe_id, t('activerecord.attributes.formlog.employe_id') %>
+    <%= f.select :employe_id, Employe.find(:all, :order =>"code").collect {|p| [p.code+p.name, p.id]}, {:include_blank=>false,:index=>''} %>
+    <%= f.label :user_id, t('activerecord.attributes.formlog.user_id') %>
+    <%= f.select :user_id, User.find(:all, :order =>"login").collect {|p| [p.login, p.id]}, {:include_blank=>false,:index=>''} %>
+  </p>
+  <p>
+    <%= f.label :remarks, t('activerecord.attributes.formlog.remarks') %>
+    <%= f.text_area :remarks, :rows => "3", :cols => "100" %>
+  </p>
+  <p>
+    <%= f.submit t('Create'.downcase) %>
+  </p>
+<% end %>

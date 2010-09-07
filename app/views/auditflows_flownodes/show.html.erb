@@ -1,0 +1,45 @@
+<h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.auditflows_flownode') %></h1>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflows_flownode.auditflow_id'.downcase) %>:</b>
+  <%=h @auditflows_flownode.auditflow.code + @auditflows_flownode.auditflow.name_cn if @auditflows_flownode.auditflow %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflows_flownode.flownode_id'.downcase) %>:</b>
+  <%=h @auditflows_flownode.flownode.code + @auditflows_flownode.flownode.name_cn if @auditflows_flownode.flownode %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflows_flownode.sequence'.downcase) %>:</b>
+  <%=h @auditflows_flownode.sequence %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflows_flownode.name'.downcase) %>:</b>
+  <%=h @auditflows_flownode.name %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflows_flownode.role_id'.downcase) %>:</b>
+  <%=h @auditflows_flownode.role.name if @auditflows_flownode.role %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflows_flownode.rec_type'.downcase) %>:</b>
+  <%=h @auditflows_flownode.rec_type %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflows_flownode.status'.downcase) %>:</b>
+  <%=h @auditflows_flownode.status %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflows_flownode.remarks'.downcase) %>:</b>
+  <%=h @auditflows_flownode.remarks %>
+</p>
+
+
+<%= link_to t('Edit'.downcase), edit_auditflows_flownode_path(@auditflows_flownode) %> |
+<%= link_to t('Back'.downcase), auditflows_flownodes_path %>

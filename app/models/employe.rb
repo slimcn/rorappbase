@@ -7,4 +7,7 @@ class Employe < ActiveRecord::Base
   has_many :users, :dependent => :destroy
 
   has_many :rordemos, :dependent => :destroy
+
+  has_many :formlogs, :dependent => :destroy
+  has_many_with_attributes :formlogs, :dependent => :destroy
 end

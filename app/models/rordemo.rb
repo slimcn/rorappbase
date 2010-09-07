@@ -3,6 +3,8 @@ class Rordemo < ActiveRecord::Base
   belongs_to :code_rule
   belongs_to :employe
   belongs_to :department
+  has_many :formlogs, :dependent => :destroy, :foreign_key => "form_id", :conditions => "form_type='Rordemo'"
+
   validates_uniqueness_of :code
 
   before_validation_on_create :get_new_unique_code

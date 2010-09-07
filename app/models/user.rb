@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   # has_many :employes, :through => :employes_users
   belongs_to :employe
 
+  has_many :formlogs, :dependent => :destroy
+  has_many_with_attributes :formlogs, :dependent => :destroy
+
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login

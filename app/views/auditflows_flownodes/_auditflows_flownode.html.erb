@@ -1,0 +1,27 @@
+
+<% if @controller.action_name == "show" -%>
+  <% fields_for_associated :auditflow, auditflows_flownode do |t_form| %>
+  <tr class="auditflows_flownode">
+    <td><%= t_form.select :flownode_id, Flownode.find(:all,:order => "code").collect {|p| [p.code+p.name_cn, p.id]}, {:include_blank=>false, :index => ''}, {:index => nil, 'disabled' => 'true'} %></td>
+    <td><%= t_form.text_field :sequence, :index => nil, 'disabled' => 'true' %></td>
+    <td><%= t_form.text_field :name, :index => nil, 'disabled' => 'true' %></td>
+    <td><%= t_form.select :role_id, Role.find(:all, :order => "name").collect {|p| [p.name, p.id]}, {:include_blank=>false, :index => ''}, {:index => nil, 'disabled' => 'true'} %></td>
+    <td><%= t_form.text_field :rec_type, :index => nil, 'disabled' => 'true' %></td>
+    <td><%= t_form.text_field :status, :index => nil, 'disabled' => 'true' %></td>
+    <td><%= t_form.text_field :remarks, :index => nil, 'disabled' => 'true' %></td>
+  </tr>
+  <% end %>
+<% else %>
+  <% fields_for_associated :auditflow, auditflows_flownode do |t_form| %>
+  <tr class="auditflows_flownode">
+    <td><%= t_form.select :flownode_id, Flownode.find(:all,:order => "code").collect {|p| [p.code+p.name_cn, p.id]}, {:include_blank=>false, :index => ''}, {:name => "auditflow[auditflows_flownodes_attributes][][flownode_id]"} %></td>
+    <td><%= t_form.text_field :sequence, :index => nil %></td>
+    <td><%= t_form.text_field :name, :index => nil %></td>
+    <td><%= t_form.select :role_id, Role.find(:all, :order => "name").collect {|p| [p.name, p.id]}, {:include_blank=>false, :index => ''}, {:name => "auditflow[auditflows_flownodes_attributes][][role_id]"} %></td>
+    <td><%= t_form.text_field :rec_type, :index => nil %></td>
+    <td><%= t_form.text_field :status, :index => nil %></td>
+    <td><%= t_form.text_field :remarks, :index => nil %></td>
+    <td><%= delete_link_for(auditflows_flownode, t("delete"), t_form) %></td>
+  </tr>
+  <% end %>
+<% end %>

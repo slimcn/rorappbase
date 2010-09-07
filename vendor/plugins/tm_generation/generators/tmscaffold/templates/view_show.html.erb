@@ -2,7 +2,7 @@
 
 <% for attribute in attributes -%>
 <p>
-  <b><%%= t('activerecord.attributes.<%= singular_name %>.<%= attribute.column.human_name %>'.downcase) %>:</b>
+  <b><%%= t('activerecord.attributes.<%= singular_name %>.<%= attribute.name %>'.downcase) %>:</b>
   <%%=h @<%= singular_name %>.<%= attribute.name %> %>
 </p>
 

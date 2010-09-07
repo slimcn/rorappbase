@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  auditflow_id: 1
+  flownode_id: 1
+  sequence: 1
+  name: MyString
+  role_id: 1
+  rec_type: MyString
+  status: MyString
+  remarks: MyText
+
+two:
+  auditflow_id: 1
+  flownode_id: 1
+  sequence: 1
+  name: MyString
+  role_id: 1
+  rec_type: MyString
+  status: MyString
+  remarks: MyText

@@ -1,0 +1,32 @@
+<h1><%= t('Editing'.downcase) %> : <%= t('activerecord.models.auditflows_form') %></h1>
+
+<% form_for(@auditflows_form) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :form_id, t('activerecord.attributes.auditflows_form.form_id') %><br />
+    <%= f.select :form_id, Form.find(:all, :order => "code").collect {|p| [p.code+p.name_cn, p.id]}, {:include_blank=>false, :index => ''}, {:onChange => remote_function(:url => {:action=>'set_form_type'}, :with => "'id='+value")} %>
+  </p>
+  <p>
+    <%= f.label :auditflow_id, t('activerecord.attributes.auditflows_form.auditflow_id') %><br />
+    <%= f.select :auditflow_id, Auditflow.find(:all, :order => "code").collect {|p| [p.code+p.name_cn, p.id]}, {:include_blank=>false,:index=>''}, {:onChange => remote_function(:url => {:action=>'set_auditflows_flownodes'}, :with => "'id='+value")}  %>
+  </p>
+  <p>
+     <%= f.label :form_type, t('activerecord.attributes.auditflows_form.form_type') %><br />
+    <%= f.text_field :form_type %>
+  </p>
+  <p>
+    <%= f.label :auditflows_flownode_id, t('activerecord.attributes.auditflows_form.auditflows_flownode_id') %><br />
+    <%= f.select :auditflows_flownode_id, AuditflowsFlownode.find(:all,:conditions=>"auditflow_id=#{@auditflows_form.auditflow_id}",:order=>"sequence").collect {|p| [p.sequence.to_s+p.flownode.code+p.flownode.name_cn, p.id]}, {:include_blank=>false,:index=>''} %>
+  </p>
+  <p>
+     <%= f.label :remarks, t('activerecord.attributes.auditflows_form.remarks') %><br />
+    <%= f.text_area :remarks %>
+  </p>
+  <p>
+    <%= f.submit t('Update'.downcase) %>
+  </p>
+<% end %>
+
+<%= link_to t('Show'.downcase), @auditflows_form %> |
+<%= link_to t('Back'.downcase), auditflows_forms_path %>

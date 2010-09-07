@@ -24,8 +24,8 @@
   <%=h @rordemo.remarks %>
 </p>
 <p>
-  <b>Employe</b><%= @rordemo.employe.name %> <br />
-  <b>Department</b><%= @rordemo.department.name %>
+  <b>Employe</b><%= @rordemo.employe.name if not @rordemo.employe.blank? %> <br />
+  <b>Department</b><%= @rordemo.department.name if not @rordemo.department.blank? %>
 </p>
 
 

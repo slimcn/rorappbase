@@ -1,0 +1,30 @@
+<h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.auditflows_form') %></h1>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflows_form.form_id'.downcase) %>:</b>
+  <%=h @auditflows_form.form.code+@auditflows_form.form.name_cn if @auditflows_form.form %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflows_form.auditflow_id'.downcase) %>:</b>
+  <%=h @auditflows_form.auditflow.code+@auditflows_form.auditflow.name if @auditflows_form.auditflow %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflows_form.form_type'.downcase) %>:</b>
+  <%=h @auditflows_form.form_type %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflows_form.auditflows_flownode_id'.downcase) %>:</b>
+  <%=h @auditflows_form.auditflows_flownode.sequence.to_s+@auditflows_form.auditflows_flownode.flownode.code+@auditflows_form.auditflows_flownode.flownode.name_cn if @auditflows_form.auditflows_flownode %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflows_form.remarks'.downcase) %>:</b>
+  <%=h @auditflows_form.remarks %>
+</p>
+
+
+<%= link_to t('Edit'.downcase), edit_auditflows_form_path(@auditflows_form) %> |
+<%= link_to t('Back'.downcase), auditflows_forms_path %>

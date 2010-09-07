@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  form_id: 1
+  form_type: MyString
+  status: MyString
+  content: MyText
+  auditflowsequence_id: 1
+  employe_id: 1
+  user_id: 1
+  before_sequence: 1
+  after_sequence: 1
+  remarks: MyText
+
+two:
+  form_id: 1
+  form_type: MyString
+  status: MyString
+  content: MyText
+  auditflowsequence_id: 1
+  employe_id: 1
+  user_id: 1
+  before_sequence: 1
+  after_sequence: 1
+  remarks: MyText

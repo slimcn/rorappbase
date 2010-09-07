@@ -1,0 +1,51 @@
+<h1><%= t('New'.downcase) %> : <%= t('activerecord.models.formlog') %></h1>
+
+<% form_for(@formlog) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :form_id, t('activerecord.attributes.formlog.form_id') %><br />
+    <%= f.text_field :form_id %>
+  </p>
+  <p>
+    <%= f.label :form_type, t('activerecord.attributes.formlog.form_type') %><br />
+    <%= f.text_field :form_type %>
+  </p>
+  <p>
+    <%= f.label :status, t('activerecord.attributes.formlog.status') %><br />
+    <%= f.text_field :status %>
+  </p>
+  <p>
+    <%= f.label :content, t('activerecord.attributes.formlog.content') %><br />
+    <%= f.text_area :content %>
+  </p>
+  <p>
+    <%= f.label :auditflows_flownode_id, t('activerecord.attributes.formlog.auditflows_flownode_id') %><br />
+    <%= f.text_field :auditflows_flownode_id %>
+  </p>
+  <p>
+    <%= f.label :employe_id, t('activerecord.attributes.formlog.employe_id') %><br />
+    <%= f.select :employe_id, Employe.find(:all, :order =>"code").collect {|p| [p.code+p.name, p.id]}, {:include_blank=>false,:index=>''} %>
+  </p>
+  <p>
+    <%= f.label :user_id, t('activerecord.attributes.formlog.user_id') %><br />
+    <%= f.select :user_id, User.find(:all, :order =>"login").collect {|p| [p.login, p.id]}, {:include_blank=>false,:index=>''} %>
+  </p>
+  <p>
+    <%= f.label :before_sequence, t('activerecord.attributes.formlog.before_sequence') %><br />
+    <%= f.text_field :before_sequence %>
+  </p>
+  <p>
+    <%= f.label :after_sequence, t('activerecord.attributes.formlog.after_sequence') %><br />
+    <%= f.text_field :after_sequence %>
+  </p>
+  <p>
+    <%= f.label :remarks, t('activerecord.attributes.formlog.remarks') %><br />
+    <%= f.text_area :remarks %>
+  </p>
+  <p>
+    <%= f.submit t('Create'.downcase) %>
+  </p>
+<% end %>
+
+<%= link_to t('Back'.downcase), formlogs_path %>

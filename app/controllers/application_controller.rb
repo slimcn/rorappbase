@@ -222,23 +222,23 @@ class ApplicationController < ActionController::Base
     table_pre = table_name.blank? ? '' : table_name + '.'
     class_name = params[:controller].titleize.sub(' ','').singularize.constantize
     if class_name.column_names.include?("employe_id")
-      ret += " " + table_pre + "employe_id in (" +  @current_user.employe.id.to_s + ") " 
+      ret += " " + table_pre + "employe_id in (" +  @current_user.employe.id.to_s + ") "
     end
     if class_name.column_names.include?("department_id")
       str_managed_depart_id = auth_user_managed_departments(@current_user.id).join(',')
       ret += " or " + table_pre + "department_id in (" + str_managed_depart_id + ")" if not str_managed_depart_id.blank?
     end
     ret = "1=1" if ret.blank?
-      
-    return " (" + ret + ") " 
+
+    return " (" + ret + ") "
   end
 
   def user_have_record(rec_id = nil, user_id=nil)
     rec_id ||= params[:id]
     if rec_id
       user_id ||= @current_user.id
-      class_name = params[:controller].titleize.sub(' ','').singularize.constantize
-      arr_rec = class_name.find(:all, :conditions => "id=" + rec_id.to_s + 
+      class_name = str_class_name(params[:controller])
+      arr_rec = class_name.find(:all, :conditions => "id=" + rec_id.to_s +
                            " and " + auth_records_condition)
       ret = arr_rec.blank?
     else
@@ -247,7 +247,10 @@ class ApplicationController < ActionController::Base
     return !ret
   end
 
-  
+  def str_class_name(str)
+    return str.titleize.sub(' ','').singularize.constantize
+  end
+
   protected
   def set_current_user
     User.current_user = self.current_user

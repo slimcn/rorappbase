@@ -1,0 +1,35 @@
+<h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.flownode') %></h1>
+
+<p>
+  <b><%= t('activerecord.attributes.flownode.code'.downcase) %>:</b>
+  <%=h @flownode.code %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.flownode.name'.downcase) %>:</b>
+  <%=h @flownode.name %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.flownode.name_cn'.downcase) %>:</b>
+  <%=h @flownode.name_cn %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.flownode.rec_type'.downcase) %>:</b>
+  <%=h @flownode.rec_type %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.flownode.status'.downcase) %>:</b>
+  <%=h @flownode.status %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.flownode.remarks'.downcase) %>:</b>
+  <%=h @flownode.remarks %>
+</p>
+
+
+<%= link_to t('Edit'.downcase), edit_flownode_path(@flownode) %> |
+<%= link_to t('Back'.downcase), flownodes_path %>

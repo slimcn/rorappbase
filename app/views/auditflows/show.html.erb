@@ -1,0 +1,51 @@
+<h1><%= t('Show'.downcase) %> : <%= t('activerecord.models.auditflow') %></h1>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflow.code'.downcase) %>:</b>
+  <%=h @auditflow.code %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflow.name'.downcase) %>:</b>
+  <%=h @auditflow.name %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflow.name_cn'.downcase) %>:</b>
+  <%=h @auditflow.name_cn %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflow.condition'.downcase) %>:</b>
+  <%=h @auditflow.condition %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflow.rec_type'.downcase) %>:</b>
+  <%=h @auditflow.rec_type %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflow.status'.downcase) %>:</b>
+  <%=h @auditflow.status %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.auditflow.remarks'.downcase) %>:</b>
+  <%=h @auditflow.remarks %>
+</p>
+
+  <fieldset>
+    <legend><%= t('details') %></legend>
+    <%= error_messages_for :auditflows_flownode %>
+    <table id="auditflows_flownodes">
+      <tr align="center">
+        <%= fields_table_head({'name' => "auditflow.auditflows_flownode"}, @sheet_detail_fields) %>
+      </tr>
+      <%= render :partial => "auditflows_flownodes/auditflows_flownode", :collection => @auditflow.auditflows_flownodes %>
+    </table>
+    <%= add_link t("add".downcase), :auditflows_flownode %>
+  </fieldset>
+
+<%= link_to t('Edit'.downcase), edit_auditflow_path(@auditflow) %> |
+<%= link_to t('Back'.downcase), auditflows_path %>

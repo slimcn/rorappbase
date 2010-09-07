@@ -203,6 +203,11 @@ zh_CN:
         even: "必须为双数"
 
     models:
+      flownode: "动作节点"
+      auditflow: "流程"
+      auditflows_flownode: "流程节点"
+      auditflows_form: "单据流程"
+      formlog: "单据历史"
       code_rule: "编码规则"
       rordemo: "应用演示"
       menutree: "菜单树"
@@ -222,6 +227,82 @@ zh_CN:
       employes_user: "用户雇员"
 
     attributes:
+      template:
+        code: "编码"
+        name: "名称"
+        name_cn: "中文名称"
+        rec_type: "类型"
+        status: "状态"
+        remarks: "备注"
+
+      flownode:
+        code: "编码"
+        name: "名称"
+        name_cn: "中文名称"
+        rec_type: "类型"
+        status: "状态"
+        remarks: "备注"
+
+      auditflow:
+        code: "编码"
+        name: "名称"
+        name_cn: "中文名称"
+        rec_type: "类型"
+        status: "状态"
+        remarks: "备注"
+        condition: "条件"
+        auditflows_flownode:
+          code: "编码"
+          name: "名称"
+          name_cn: "中文名称"
+          rec_type: "类型"
+          status: "状态"
+          remarks: "备注"
+          auditflow_id: "流程"
+          flownode_id: "节点"
+          sequence: "序号"
+          role_id: "角色"
+
+      auditflows_flownode:
+        code: "编码"
+        name: "名称"
+        name_cn: "中文名称"
+        rec_type: "类型"
+        status: "状态"
+        remarks: "备注"
+        auditflow_id: "流程"
+        flownode_id: "节点"
+        sequence: "序号"
+        role_id: "角色"
+
+      auditflows_form:
+        code: "编码"
+        name: "名称"
+        name_cn: "中文名称"
+        rec_type: "类型"
+        status: "状态"
+        remarks: "备注"
+        auditflow_id: "流程"
+        form_id: "表单"
+        form_type: "表单类型"
+        auditflows_flownode_id: "流程节点"
+
+      formlog:
+        code: "编码"
+        name: "名称"
+        name_cn: "中文名称"
+        rec_type: "类型"
+        status: "状态"
+        remarks: "备注"
+        form_id: "表单"
+        form_type: "表单类型"
+        content: "内容"
+        auditflows_flownode_id: "流程节点"
+        employe_id: "雇员"
+        user_id: "登录用户"
+        before_sequence_id: "前节点"
+        after_sequence_id: "后节点"
+
       code_rule:
         table_name: "表名"
         field_name: "字段名"

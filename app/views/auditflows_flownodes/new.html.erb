@@ -1,0 +1,43 @@
+<h1><%= t('New'.downcase) %> : <%= t('activerecord.models.auditflows_flownode') %></h1>
+
+<% form_for(@auditflows_flownode) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :auditflow_id, t('activerecord.attributes.auditflows_flownode.auditflow_id') %><br />
+    <%= f.select :auditflow_id, Auditflow.all(:order => "code").collect {|p| [p.code+p.name_cn, p.id]}, {:include_blank=>false, :index => ''} %>
+  </p>
+  <p>
+    <%= f.label :flownode_id, t('activerecord.attributes.auditflows_flownode.flownode_id') %><brr />
+    <%= f.select :flownode_id, Flownode.find(:all,:order => "code").collect {|p| [p.code+p.name_cn, p.id]}, {:include_blank=>false, :index => ''} %>
+  </p>
+  <p>
+    <%= f.label :sequence, t('activerecord.attributes.auditflows_flownode.sequence') %><br />
+    <%= f.text_field :sequence %>
+  </p>
+  <p>
+    <%= f.label :name, t('activerecord.attributes.auditflows_flownode.name') %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :role_id, t('activerecord.attributes.auditflows_flownode.role_id') %><br />
+    <%= f.select :role_id, Role.find(:all, :order => "name").collect {|p| [p.name, p.id]}, {:include_blank=>false, :index => ''} %>
+  </p>
+  <p>
+    <%= f.label :rec_type, t('activerecord.attributes.auditflows_flownode.rec_type') %><br />
+    <%= f.text_field :rec_type %>
+  </p>
+  <p>
+    <%= f.label :status, t('activerecord.attributes.auditflows_flownode.status') %><br />
+    <%= f.text_field :status %>
+  </p>
+  <p>
+    <%= f.label :remarks, t('activerecord.attributes.auditflows_flownode.remarks') %><br />
+    <%= f.text_area :remarks %>
+  </p>
+  <p>
+    <%= f.submit t('Create'.downcase) %>
+  </p>
+<% end %>
+
+<%= link_to t('Back'.downcase), auditflows_flownodes_path %>

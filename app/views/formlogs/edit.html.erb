@@ -1,0 +1,52 @@
+<h1><%= t('Editing'.downcase) %> : <%= t('activerecord.models.formlog') %></h1>
+
+<% form_for(@formlog) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+     <%= f.label :form_id, t('activerecord.attributes.formlog.form_id') %><br />
+    <%= f.text_field :form %>
+  </p>
+  <p>
+     <%= f.label :form_type, t('activerecord.attributes.formlog.form_type') %><br />
+    <%= f.text_field :form_type %>
+  </p>
+  <p>
+     <%= f.label :status, t('activerecord.attributes.formlog.status') %><br />
+    <%= f.text_field :status %>
+  </p>
+  <p>
+     <%= f.label :content, t('activerecord.attributes.formlog.content') %><br />
+    <%= f.text_area :content %>
+  </p>
+  <p>
+     <%= f.label :auditflows_flownode_id, t('activerecord.attributes.formlog.auditflows_flownode_id') %><br />
+    <%= f.select :auditflows_flownode_id, AuditflowsForm.find(:first, :conditions=>"form_id=#{@formlog.form_id} and form_type='#{@formlog.form_type}'").auditflow.auditflows_flownodes.collect {|p| [p.sequence.to_s+p.flownode.code+p.flownode.name_cn, p.id]}, {:include_blank=>false,:index=>''} %>
+  </p>
+  <p>
+     <%= f.label :employe_id, t('activerecord.attributes.formlog.employe_id') %><br />
+    <%= f.text_field :employe_id %>
+  </p>
+  <p>
+     <%= f.label :user_id, t('activerecord.attributes.formlog.user_id') %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+     <%= f.label :before_sequence_id, t('activerecord.attributes.formlog.before_sequence_id') %><br />
+    <%= f.text_field :before_sequence_id %>
+  </p>
+  <p>
+     <%= f.label :after_sequence_id, t('activerecord.attributes.formlog.after_sequence_id') %><br />
+    <%= f.text_field :after_sequence_id %>
+  </p>
+  <p>
+     <%= f.label :remarks, t('activerecord.attributes.formlog.remarks') %><br />
+    <%= f.text_area :remarks %>
+  </p>
+  <p>
+    <%= f.submit t('Update'.downcase) %>
+  </p>
+<% end %>
+
+<%= link_to t('Show'.downcase), @formlog %> |
+<%= link_to t('Back'.downcase), formlogs_path %>

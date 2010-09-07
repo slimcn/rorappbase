@@ -69,6 +69,8 @@ $j(document).ready(function(){
                         $j("#del_tableRecs").click();
                     } else if (btn_type=="btn_show") {
                         openwin(pre_url+'/'+var_id)
+                    } else if (btn_type=="btn_audit_self") {
+                        openwin(pre_url+'/'+var_id+'/audit_self')
                     } else {
                         alert("Î´Öª²Ù×÷ÇëÇó£¡");
                     }

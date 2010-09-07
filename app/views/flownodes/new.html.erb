@@ -1,0 +1,35 @@
+<h1><%= t('New'.downcase) %> : <%= t('activerecord.models.flownode') %></h1>
+
+<% form_for(@flownode) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :code, t('activerecord.attributes.flownode.code') %><br />
+    <%= f.text_field :code %>
+  </p>
+  <p>
+    <%= f.label :name, t('activerecord.attributes.flownode.name') %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :name_cn, t('activerecord.attributes.flownode.name_cn') %><br />
+    <%= f.text_field :name_cn %>
+  </p>
+  <p>
+    <%= f.label :rec_type, t('activerecord.attributes.flownode.rec_type') %><br />
+    <%= f.text_field :rec_type %>
+  </p>
+  <p>
+    <%= f.label :status, t('activerecord.attributes.flownode.status') %><br />
+    <%= f.text_field :status %>
+  </p>
+  <p>
+    <%= f.label :remarks, t('activerecord.attributes.flownode.remarks') %><br />
+    <%= f.text_area :remarks %>
+  </p>
+  <p>
+    <%= f.submit t('Create'.downcase) %>
+  </p>
+<% end %>
+
+<%= link_to t('Back'.downcase), flownodes_path %>

@@ -10,11 +10,13 @@ class RordemosController < ApplicationController
                      { :field => 'name', :width => 80, :editable => true},
                      { :field => 'recordtype', :width => 80, :editable => true},
                      { :field => 'status', :width => 80, :editable => true},
+                     { :field => 'employe_id', :width => 80, :editable => true},
+                     { :field => 'department_id', :width => 80, :editable => true},
                      { :field => 'remarks', :width => 80, :editable => true}]
     @sheet_detail_fields = ''
-    @sheet_fields_no_id = ":code, :name, :recordtype, :status, :remarks"
-    @sheet_fields_no_id_params = ":code => params[:code], :name => params[:name], :recordtype => params[:recordtype], :status => params[:status], :remarks => params[:remarks]"
-    @sheet_fields_type = "code:text_field name:text_field recordtype:text_field status:text_field remarks:text_area "
+    @sheet_fields_no_id = ":code, :name, :recordtype, :status, :employe_id, :department_id, :remarks"
+    @sheet_fields_no_id_params = ":code => params[:code], :name => params[:name], :recordtype => params[:recordtype], :status => params[:status], :employe_id => params[:employe_id], :department_id => params[:department_id], :remarks => params[:remarks]"
+    @sheet_fields_type = "code:text_field name:text_field recordtype:text_field status:text_field employe_id:text_field department_id:text_field remarks:text_area "
   end
 
   def post_data
@@ -157,4 +159,60 @@ class RordemosController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  # PUT /rordemos/1/audit
+  # PUT /rordemos/1.xml/audit
+  def audit
+    @rordemo = Rordemo.find(params[:id])
+    @formlog = Formlog.new(params[:formlog])
+
+    @auditflows_form = AuditflowsForm.find(:first, :conditions=>"form_type='"+@formlog.form_type+"' and form_id="+@formlog.form_id.to_s)
+    # 没有审核流程关系(自检)时设定表单审核流程关系
+    @auditflows_form = get_new_auditflows_form(@formlog) if @auditflows_form.blank?
+    # 设定审核操作相关值
+    @formlog.auditflows_flownode = @auditflows_form.auditflows_flownode
+    #报错：can't convert Symbol into String。 @formlog.before_sequence = @auditflows_form.auditflows_flownode.pre_flownode
+    before_sequence = AuditflowsFlownode.pre_flownode(@auditflows_form.auditflows_flownode)
+    @formlog.before_sequence_id = before_sequence #if before_sequence
+    after_sequence = AuditflowsFlownode.next_flownode(@auditflows_form.auditflows_flownode)
+    @formlog.after_sequence_id = after_sequence #if after_sequence
+    @auditflows_form.auditflows_flownode_id = @formlog.after_sequence_id
+
+    respond_to do |format|
+      begin
+        Rordemo.transaction do
+          @formlog.save!
+          @auditflows_form.save!
+          flash[:notice] = '审核完成.'
+          format.html { redirect_to(@rordemo) }
+          format.xml  { render :xml => @formlog, :status => :created, :location => @formlog }
+        end
+        rescue
+        format.html { render :action => "audit_self" }
+        format.xml  { render :xml => @formlog.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  def get_new_auditflows_form(formlog)
+      @auditflows_form = AuditflowsForm.new()
+      # auditflow = get_auditflow_with_form(formlog.form_type, formlog.form_id)
+      auditflow = Auditflow.find(1)
+      @auditflows_form.form_id, @auditflows_form.form_type, @auditflows_form.auditflow_id = @formlog.form_id, @formlog.form_type, auditflow_id
+      # AuditflowsForm.auditflows_flownode_id 表示下一步将进行的操作
+      @auditflows_form.auditflows_flownode_id = auditflow.auditflows_flownodes[1].id if not auditflow.auditflows_flownodes[1].blank?
+  end
+
+  # get /rordemos/1/audit_self
+  def audit_self
+    @rordemo = Rordemo.find(params[:id])
+    @formlog = Formlog.new
+    @formlog.form_id = @rordemo.id
+    @formlog.form_type = @rordemo.class.name
+    @formlog.employe_id = @current_user.employe_id
+    @formlog.user_id = @current_user.id
+
+    @formlog.status = 0 # 新增状态
+  end
+
 end
