@@ -20,7 +20,10 @@ class ApplicationController < ActionController::Base
   before_filter :set_current_user
 
   def record_operation_button
-    return [["add","新增"],["update","修改"],["delete","删除"],["show","查看"],["refresh","刷新"],["search","查询"],["audit_self","自检"]]
+    btn_list = [["add","新增","E"],["update","修改","E"],["delete","删除","E"],["show","查看","E"],["refresh","刷新","E"],["search","查询","E"]]
+    records = Flownode.find(:all, :order => "code", :conditions => "rec_type='A'")
+    btn_list += records.collect { |p| [p.name, p.name_cn, p.rec_type]}
+    return btn_list
   end
 
   def login_required
@@ -274,6 +277,8 @@ class ApplicationController < ActionController::Base
 
   # 赋值表单日志、表单-流程对应关系的状态、记录状态
   def flow_set_rec_log_and_status(formlog, flow_form, form)
+    t = Time.now
+    formlog.remarks = @current_user.employe.name + "(" + @current_user.login + ")于" + t.strftime("%Y年%m月%d日 %H:%M:%S") + "做了" + "#{params[:button_name_cn]}" + "操作"
     formlog.auditflows_flownode_id = flow_form.auditflows_flownode_id # 当前流程点
     before_sequence = AuditflowsFlownode.pre_flownode(flow_form.auditflows_flownode)
     formlog.before_sequence_id = before_sequence.id if before_sequence
@@ -285,6 +290,17 @@ class ApplicationController < ActionController::Base
       form.status = "6000" if flow_form.auditflows_flownode_id.blank? # 无后续流程，则设置记录状态为审核完成
     end
     return formlog, flow_form, form
+  end
+
+  # 检查所做操作是否为当前可执行的动作
+  def flow_is_need_action_on_flow(rec, action_name)
+    auditflow = AuditflowsForm.find(:first, :conditions=>"form_id=#{@rordemo.id} and form_type='#{@rordemo.class.name}'" )
+    if auditflow
+      flownode_name = auditflow.auditflows_flownode.flownode.name if auditflow.auditflows_flownode && auditflow.auditflows_flownode.flownode
+    else
+      flownode_name = "audit_self"
+    end
+    return flownode_name == action_name
   end
 
   protected

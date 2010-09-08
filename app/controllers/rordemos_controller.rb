@@ -73,10 +73,6 @@ class RordemosController < ApplicationController
     end
   end
 
-  def record_operation_button
-    return [["add","新增"],["update","修改"],["delete","删除"],["show","查看"],["refresh","刷新"],["search","查询"],["audit_self","自检"],["audit_ywjl","业务经理"]]
-  end
-
   # GET /rordemos/1
   # GET /rordemos/1.xml
   def show
@@ -197,7 +193,14 @@ class RordemosController < ApplicationController
   # get /rordemos/1/audit_self
   def audit_self
     @rordemo = Rordemo.find(params[:id])
+    @button_name, @button_name_cn = params[:button_name], params[:button_name_cn]
+    if not flow_is_need_action_on_flow(@rordemo, @button_name) # 是否为当前要操作的节点
+      flash[:notice] = '操作流程不允许'
+      render :action => "show"
+      return
+    end
     @formlog = flow_get_new_formlog(@rordemo)
+
   end
 
 end

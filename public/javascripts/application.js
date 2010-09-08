@@ -25,26 +25,29 @@ $j(document).ready(function(){
     });
 
 <!-- // start // operate button action -->
-    $j("button").click(function(){
-        var btn_type = $j(this).attr("id");
+    $j("button").click(function(){ //根据按钮类型确定操作
+        var btn_id = $j(this).attr("id");
+        var btn_name_cn = $j(this).attr("name_cn");
+        var btn_name = $j(this).attr("value");
+        var btn_type = $j(this).attr("btn_type");
         var pre_url = $j(this).attr("pre_url");
         //TODO: 若按钮类不属 jqgrid_form 调用普通界面  若属jqgrid_form，调用jqgrid默认界面
         if ($j(this).hasClass("jqgrid_form")) {
-            if (btn_type=="btn_add") {
+            if (btn_id=="btn_add") {
                 $j("#add_tableRecs").click();
-            } else if (btn_type=="btn_search") {
+            } else if (btn_id=="btn_search") {
                 $j("#tableRecs")[0].toggleToolbar();
                     //$j("#search_tableRecs").click();
-            } else if (btn_type=="btn_refresh") {
+            } else if (btn_id=="btn_refresh") {
                 $j("#refresh_tableRecs").click();
             } else { // need id when operate
                 $j("#tableRecs_select_button").click(); // 设置记录id
                 if (var_id > 0) {
-                    if (btn_type=="btn_update") {
+                    if (btn_id=="btn_update") {
                         $j("#edit_tableRecs").click();
-                    } else if (btn_type=="btn_delete") {
+                    } else if (btn_id=="btn_delete") {
                         $j("#del_tableRecs").click();
-                    } else if (btn_type=="btn_show") {
+                    } else if (btn_id=="btn_show") {
                         $j("#show_tableRecs").click();
                     } else {
                         alert("未知操作请求！");
@@ -54,25 +57,25 @@ $j(document).ready(function(){
                 }
             }
         } else if ($j(this).hasClass("multi_model")) {
-            if (btn_type=="btn_add") {
+            if (btn_id=="btn_add") {
                 openwin(pre_url+'/new');
-            } else if (btn_type=="btn_search") {
+            } else if (btn_id=="btn_search") {
                 $j("#tableRecs")[0].toggleToolbar();
-            } else if (btn_type=="btn_refresh") {
+            } else if (btn_id=="btn_refresh") {
                 $j("#refresh_tableRecs").click();
             } else { // need id when operate
                 $j("#tableRecs_select_button").click(); // 设置记录id
                 if (var_id > 0) {
-                    if (btn_type=="btn_update") {
+                    if (btn_id=="btn_update") {
                         openwin(pre_url+'/'+var_id+'/edit')
-                    } else if (btn_type=="btn_delete") {
+                    } else if (btn_id=="btn_delete") {
                         $j("#del_tableRecs").click();
-                    } else if (btn_type=="btn_show") {
-                        openwin(pre_url+'/'+var_id)
-                    } else if (btn_type=="btn_audit_self") {
-                        openwin(pre_url+'/'+var_id+'/audit_self')
+                    } else if (btn_id=="btn_show") {
+                        openwin(pre_url+'/'+var_id);
+                    } else if (btn_type=="A") { // 审核操作
+                        openwin(pre_url+'/'+var_id+'/audit_self'+'?button_name='+btn_name+'&button_name_cn='+btn_name_cn);
                     } else {
-                        alert("未知操作请求！");
+                        openwin(pre_url+'/'+var_id+'/'+btn_name+'?button_name='+btn_name+'&button_name_cn='+btn_name_cn);
                     }
                 } else {
                     alert("未知操作请求！");

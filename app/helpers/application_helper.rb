@@ -7,7 +7,7 @@ module ApplicationHelper
     @sheet_options = { "edit_form_type" => "jqgrid_form" }.merge(@sheet_options)
     edit_form_type = @sheet_options.has_key?("edit_form_type") ? @sheet_options["edit_form_type"] : "jqgrid_form"
     buttons.each do |btn|
-      html += "<button id='btn_" + btn[0] +"' class='rest-button #{edit_form_type}' pre_url='/#{controller_name}' >" + btn[1] + "</button>"
+      html += "<button id='btn_" + btn[0] +"' class='rest-button #{edit_form_type}' pre_url='/#{controller_name}' value='#{btn[0]}' name_cn='#{btn[1]}' btn_type='#{btn[2]}' >" + btn[1] + "</button>"
     end
     return html
   end

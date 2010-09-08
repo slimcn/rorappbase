@@ -1,4 +1,4 @@
-<% form_for(@formlog, :url => {:action=>"audit"}) do |f| %>
+<% form_for(@formlog, :url => {:action=>"audit", :button_name=>"#{@button_name}", :button_name_cn=>"#{@button_name_cn}"}) do |f| %>
   <%= f.error_messages %>
 
   <p>
