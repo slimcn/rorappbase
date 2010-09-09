@@ -10,7 +10,7 @@ class TmscaffoldGenerator < Rails::Generator::NamedBase
                 :controller_underscore_name,
                 :controller_singular_name,
                 :controller_plural_name,
-                :attr_fields, :attr_fields_no_id, :attr_fields_no_id_params, :attr_fields_type,
+                :attr_fields,
                 :attr_detail_fields
   alias_method  :controller_file_name,  :controller_underscore_name
   alias_method  :controller_table_name, :controller_plural_name
@@ -18,7 +18,7 @@ class TmscaffoldGenerator < Rails::Generator::NamedBase
   def initialize(runtime_args, runtime_options = {})
     super
 
-    @attr_fields, @attr_fields_no_id, @attr_fields_no_id_params, @attr_fields_type = get_attr_fields_for_tmscaffold
+    @attr_fields = get_attr_fields_for_tmscaffold
 
     if @name == @name.pluralize && !options[:force_plural]
       logger.warning "Plural version of the model detected, using singularized version.  Override with --force-plural."
@@ -110,22 +110,11 @@ class TmscaffoldGenerator < Rails::Generator::NamedBase
       else
         attr_fields += "{ :field => '#{attr.name}', :width => 80, :editable => true}"
       end
-      if attr_fields_no_id.length > 0
-        attr_fields_no_id += ", :#{attr.name}"
-      else
-        attr_fields_no_id += ":#{attr.name}"
-      end
-      if attr_fields_no_id_params.length > 0
-        attr_fields_no_id_params += ", :#{attr.name} => params[:#{attr.name}]"
-      else
-        attr_fields_no_id_params += ":#{attr.name} => params[:#{attr.name}]"
-      end
-      attr_fields_type += "#{attr.name}:#{attr.field_type} "
     end
     if attr_fields.length > 0
       attr_fields = "[" + attr_fields + "]"
     end
-    return attr_fields, attr_fields_no_id, attr_fields_no_id_params, attr_fields_type
+    return attr_fields
   end
 
 end

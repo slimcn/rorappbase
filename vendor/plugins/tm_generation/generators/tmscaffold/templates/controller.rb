@@ -8,9 +8,9 @@ class <%= controller_class_name %>Controller < ApplicationController
                       }
     @sheet_fields = <%= attr_fields %>
     @sheet_detail_fields = '<%= attr_detail_fields || [] %>'
-    @sheet_fields_no_id = "<%= attr_fields_no_id %>"
-    @sheet_fields_no_id_params = "<%= attr_fields_no_id_params %>"
-    @sheet_fields_type = "<%= attr_fields_type %>"
+    fields = @sheet_fields.collect { |q| q[:field]}
+    @sheet_fields_no_id = fields.collect { |q| ":"+q}.join(", ")
+    @sheet_fields_no_id_params = fields.collect { |q| ":#{q} => params[:#{q}]"}.join(", ")
   end
 
   def post_data
