@@ -202,6 +202,15 @@ zh_CN:
         odd: "必须为单数"
         even: "必须为双数"
 
+    common_fields:
+      code: "编码"
+      name: "名称"
+      status: "状态"
+      remarks: "备注"
+      auditflow_id: "审核流程"
+      auditflows_flownode_id: "后续流程"
+      auditflows_flownode_name: "后续流程名称"
+
     models:
       flownode: "动作节点"
       auditflow: "流程"
@@ -321,6 +330,9 @@ zh_CN:
         remarks: "备注"
         employe_id: "创建人"
         department_id: "所属部门"
+        auditflow_id: "审核流程"
+        auditflows_flownode_id: "后续流程"
+        auditflows_flownode_name: "后续流程名称"
 
       menutree:
         code: "编码"

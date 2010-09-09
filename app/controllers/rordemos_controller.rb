@@ -12,11 +12,15 @@ class RordemosController < ApplicationController
                      { :field => 'status', :width => 80, :editable => true},
                      { :field => 'employe_id', :width => 80, :editable => true},
                      { :field => 'department_id', :width => 80, :editable => true},
-                     { :field => 'remarks', :width => 80, :editable => true}]
+                     { :field => 'remarks', :width => 80, :editable => true},
+                     { :field => 'auditflow_id', :width => 80, :editable => true},
+                     { :field => 'auditflows_flownode_id', :width => 80, :editable => true},
+                     { :field => 'auditflows_flownode_name', :width => 80, :editable => true},
+                    ]
     @sheet_detail_fields = ''
-    @sheet_fields_no_id = ":code, :name, :recordtype, :status, :employe_id, :department_id, :remarks"
-    @sheet_fields_no_id_params = ":code => params[:code], :name => params[:name], :recordtype => params[:recordtype], :status => params[:status], :employe_id => params[:employe_id], :department_id => params[:department_id], :remarks => params[:remarks]"
-    @sheet_fields_type = "code:text_field name:text_field recordtype:text_field status:text_field employe_id:text_field department_id:text_field remarks:text_area "
+    fields = @sheet_fields.collect { |q| q[:field]}
+    @sheet_fields_no_id = fields.collect { |q| ":"+q}.join(", ")
+    @sheet_fields_no_id_params = fields.collect { |q| ":#{q} => params[:#{q}]"}.join(", ")
   end
 
   def post_data

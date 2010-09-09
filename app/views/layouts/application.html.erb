@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -33,9 +34,37 @@
       return false; // Don't remove this!
     }
     return true; // Don't remove this!
- }
+  }
+
+
 </script>
 <!-- // end // 2dc_jqgrid js -->
+
+
+<!-- // start // init form js -->
+<script type="text/javascript" charset="utf-8">
+  $j(window).load(function(){
+    $j("#tableRecs").jqGrid("setGridParam",{onSelectRow: function(id) {
+      var id = $j("#tableRecs").jqGrid("getGridParam","selrow");
+      var flow_id, flownode_name
+      if (id) {
+        var ret = $j("#tableRecs").jqGrid("getRowData",id);
+        flow_id = ret.auditflow_id;
+        flownode_name = ret.auditflows_flownode_name;}
+      enabledButton(flow_id, flownode_name);
+    }});
+
+    function enabledButton(flow_id, flownode_name){
+      var btn_str = "#btn_add, #btn_refresh, #btn_search";
+      if (flow_id) {if (flownode_name) {btn_str  = btn_str + ", #btn_" + flownode_name;}} // 审核中，对应流程节点可用
+      else {btn_str = btn_str + ",#btn_update, #btn_delete, #btn_audit_self";}; // 未审核，删、改、自检可用
+      btn_str = btn_str + ", #btn_show"; // 查看在选择记录后一直可用
+      $j("button").attr('disabled',true);
+      $j(btn_str).attr('disabled',false);
+    }
+  });
+</script>
+<!-- // end // init form js -->
 
 </head>
 <body>
@@ -87,5 +116,12 @@
       </div>
     </div>
   </div>
+
+  <div class="contextMenu" id="testMenu">
+    <ul>
+      <li id="open"><img src="folder.png" /> 打开</li>
+    </ul>
+  </div>
+
 </body>
 </html>

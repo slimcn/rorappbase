@@ -4,10 +4,21 @@ class Rordemo < ActiveRecord::Base
   belongs_to :employe
   belongs_to :department
   has_many :formlogs, :dependent => :destroy, :foreign_key => "form_id", :conditions => "form_type='Rordemo'"
+  has_many :auditflows_form, :dependent=>:destroy, :foreign_key => "form_id", :conditions => "form_type='Rordemo'"
 
   validates_uniqueness_of :code
 
   before_validation_on_create :get_new_unique_code
+
+  def auditflow_id
+    self.auditflows_form[0].auditflow_id if self.auditflows_form[0]
+  end
+  def auditflows_flownode_id
+    self.auditflows_form[0].auditflows_flownode.flownode_id if self.auditflows_form[0] && self.auditflows_form[0].auditflows_flownode
+  end
+  def auditflows_flownode_name
+    self.auditflows_form[0].auditflows_flownode.flownode.name if self.auditflows_form[0] && self.auditflows_form[0].auditflows_flownode
+  end
 
   protected
   def get_new_unique_code

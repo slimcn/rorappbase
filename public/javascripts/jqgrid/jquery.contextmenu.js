@@ -140,5 +140,5 @@
 })(jQuery);
 
 $(function() {
-  $('div.contextMenu').hide();
+  jQuery('div.contextMenu').hide();
 });
