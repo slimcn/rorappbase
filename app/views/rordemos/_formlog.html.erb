@@ -32,6 +32,7 @@
     <%= f.text_area :remarks, :rows => "3", :cols => "100" %>
   </p>
   <p>
-    <%= f.submit t('Create'.downcase) %>
+    <button name='submit' type='submit' value='allow'><%= t("Allow".downcase) %></button>
+    <button name='submit' type='submit' value='refuse'><%= t("Refuse".downcase) %></button>
   </p>
 <% end %>

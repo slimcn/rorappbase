@@ -278,17 +278,28 @@ class ApplicationController < ActionController::Base
   # 赋值表单日志、表单-流程对应关系的状态、记录状态
   def flow_set_rec_log_and_status(formlog, flow_form, form)
     t = Time.now
-    formlog.remarks = @current_user.employe.name + "(" + @current_user.login + ")于" + t.strftime("%Y年%m月%d日 %H:%M:%S") + "做了" + "#{params[:button_name_cn]}" + "操作"
+    str_allow = "" # 通过 or 驳回
+    if params[:submit] == "allow"
+      str_allow = I18n.t("allow")
+      after_sequence = AuditflowsFlownode.next_flownode(flow_form.auditflows_flownode)
+      formlog.after_sequence_id = after_sequence.id if after_sequence
+      if form.attribute_names.include?("status") # 设置记录状态
+        form.status = "1000" if (flow_form.id.blank? || (form.status != "1000")) # 表单-流程关系尚未永久保存，为审核流程开始，则设置记录状态为审核完成
+        form.status = "6000" if flow_form.auditflows_flownode_id.blank? # 无后续流程，则设置记录状态为审核完成
+      end
+    else
+      str_allow = I18n.t("#{params[:submit]}")
+      after_sequence = Auditflow.find(flow_form.auditflow_id).auditflows_flownodes[0]
+      formlog.after_sequence_id = after_sequence.id if after_sequence
+      if form.attribute_names.include?("status") # 设置记录状态
+        form.status = "0" if (form.status >= "1000") # 表单-流程关系尚未永久保存，为审核流程开始，则设置记录状态为审核完成
+      end
+    end
+    formlog.remarks = @current_user.employe.name + "(" + @current_user.login + ")于" + t.strftime("%Y年%m月%d日 %H:%M:%S") + "做了" + "#{params[:button_name_cn]}" + "#{str_allow}" + "操作"
     formlog.auditflows_flownode_id = flow_form.auditflows_flownode_id # 当前流程点
     before_sequence = AuditflowsFlownode.pre_flownode(flow_form.auditflows_flownode)
     formlog.before_sequence_id = before_sequence.id if before_sequence
-    after_sequence = AuditflowsFlownode.next_flownode(flow_form.auditflows_flownode)
-    formlog.after_sequence_id = after_sequence.id if after_sequence
     flow_form.auditflows_flownode_id = formlog.after_sequence_id # 表单-流程对应中的流程点为下一可用操作
-    if form.attribute_names.include?("status") # 设置记录状态
-      form.status = "1000" if (flow_form.id.blank? || (form.status != "1000")) # 表单-流程关系尚未永久保存，为审核流程开始，则设置记录状态为审核完成
-      form.status = "6000" if flow_form.auditflows_flownode_id.blank? # 无后续流程，则设置记录状态为审核完成
-    end
     return formlog, flow_form, form
   end
 

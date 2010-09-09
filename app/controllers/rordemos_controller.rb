@@ -183,6 +183,7 @@ class RordemosController < ApplicationController
         Rordemo.transaction do
           @formlog.save!
           @auditflows_form.save!
+          @rordemo.save!
           flash[:notice] = '审核完成.'
           format.html { redirect_to(@rordemo) }
           format.xml  { render :xml => @formlog, :status => :created, :location => @formlog }
@@ -204,7 +205,6 @@ class RordemosController < ApplicationController
       return
     end
     @formlog = flow_get_new_formlog(@rordemo)
-
   end
 
 end

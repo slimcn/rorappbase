@@ -10,6 +10,8 @@ zh_CN:
   "found": "条记录"
   "create": "创建"
   "update": "更新"
+  "allow": "通过"
+  "refuse": "驳回"
   "back": "后退"
   "_select_" : "- 选择 -"
   "add_existing" : "增加已存在"
