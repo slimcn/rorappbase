@@ -278,28 +278,31 @@ class ApplicationController < ActionController::Base
   # 赋值表单日志、表单-流程对应关系的状态、记录状态
   def flow_set_rec_log_and_status(formlog, flow_form, form)
     t = Time.now
-    str_allow = "" # 通过 or 驳回
-    if params[:submit] == "allow"
-      str_allow = I18n.t("allow")
-      after_sequence = AuditflowsFlownode.next_flownode(flow_form.auditflows_flownode)
-      formlog.after_sequence_id = after_sequence.id if after_sequence
-      if form.attribute_names.include?("status") # 设置记录状态
-        form.status = "1000" if (flow_form.id.blank? || (form.status != "1000")) # 表单-流程关系尚未永久保存，为审核流程开始，则设置记录状态为审核完成
-        form.status = "6000" if flow_form.auditflows_flownode_id.blank? # 无后续流程，则设置记录状态为审核完成
-      end
-    else
-      str_allow = I18n.t("#{params[:submit]}")
-      after_sequence = Auditflow.find(flow_form.auditflow_id).auditflows_flownodes[0]
-      formlog.after_sequence_id = after_sequence.id if after_sequence
-      if form.attribute_names.include?("status") # 设置记录状态
+    is_allow = params[:submit] == 'allow' # 审核提交时的按钮：通过 or 驳回
+    is_unaudit = params[:button_name] == 'audit_unaudit' # 审核操作按钮：反审
+    str_allow = '' # 通过 or 驳回
+
+    formlog.remarks = @current_user.employe.name + "(" + @current_user.login + ")于" +
+      t.strftime("%Y年%m月%d日 %H:%M:%S") + "做了" +
+      "#{params[:button_name_cn]}" + I18n.t("#{params[:submit]}") + "操作"
+    formlog.auditflows_flownode_id = flow_form.auditflows_flownode_id # 当前流程点
+    before_sequence = is_unaudit ? Auditflow.find(flow_form.auditflow_id).auditflows_flownodes.last :
+      AuditflowsFlownode.pre_flownode(flow_form.auditflows_flownode)
+    formlog.before_sequence_id = before_sequence.id if before_sequence
+    after_sequence = is_unaudit ? Auditflow.find(flow_form.auditflow_id).auditflows_flownodes.first :
+      AuditflowsFlownode.next_flownode(flow_form.auditflows_flownode)
+    formlog.after_sequence_id = after_sequence.id if after_sequence
+    flow_form.auditflows_flownode_id = formlog.after_sequence_id # 表单-流程对应中的流程点为下一可用操作
+    if form.attribute_names.include?("status") # 设置记录状态
+      if (not is_allow) || is_unaudit
         form.status = "0" if (form.status >= "1000") # 表单-流程关系尚未永久保存，为审核流程开始，则设置记录状态为审核完成
+      elsif flow_form.id.blank? || (form.status != "1000") # 表单-流程关系尚未永久保存，为审核流程开始，则设置记录状态为审核完成
+        form.status = "1000"
+      elsif after_sequence.blank? || (after_sequence.flownode.name=='audit_unaudit') # 无后续流程，或后续流程为反审，则设置记录状态为审核完成
+        form.status = "6000"
       end
     end
-    formlog.remarks = @current_user.employe.name + "(" + @current_user.login + ")于" + t.strftime("%Y年%m月%d日 %H:%M:%S") + "做了" + "#{params[:button_name_cn]}" + "#{str_allow}" + "操作"
-    formlog.auditflows_flownode_id = flow_form.auditflows_flownode_id # 当前流程点
-    before_sequence = AuditflowsFlownode.pre_flownode(flow_form.auditflows_flownode)
-    formlog.before_sequence_id = before_sequence.id if before_sequence
-    flow_form.auditflows_flownode_id = formlog.after_sequence_id # 表单-流程对应中的流程点为下一可用操作
+
     return formlog, flow_form, form
   end
 
@@ -308,6 +311,7 @@ class ApplicationController < ActionController::Base
     auditflow = AuditflowsForm.find(:first, :conditions=>"form_id=#{@rordemo.id} and form_type='#{@rordemo.class.name}'" )
     if auditflow
       flownode_name = auditflow.auditflows_flownode.flownode.name if auditflow.auditflows_flownode && auditflow.auditflows_flownode.flownode
+      flownode_name = (auditflow.auditflows_flownode && auditflow.auditflows_flownode.flownode) ? auditflow.auditflows_flownode.flownode.name : "audit_unaudit"
     else
       flownode_name = "audit_self"
     end

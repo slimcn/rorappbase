@@ -169,7 +169,7 @@ class RordemosController < ApplicationController
     @rordemo = Rordemo.find(params[:id])
     @formlog = Formlog.new(params[:formlog])
     @auditflows_form = flow_get_auditflows_form(@formlog) # 获得表单-审核流程对应，没有对应(自检)时获得新的对应（未存入数据库）
-    if @auditflows_form.auditflows_flownode
+    if @auditflows_form.auditflows_flownode || flow_is_need_action_on_flow(@rordemo, params[:button_name])
       # 设定审核操作相关值
       @formlog, @auditflows_form, @rordemo = flow_set_rec_log_and_status(@formlog, @auditflows_form, @rordemo)
     else  # 审核流程已经结束

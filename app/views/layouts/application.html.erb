@@ -49,6 +49,7 @@
       var flow_id, flownode_name
       if (id) {
         var ret = $j("#tableRecs").jqGrid("getRowData",id);
+        form_status = ret.status;
         flow_id = ret.auditflow_id;
         flownode_name = ret.auditflows_flownode_name;}
       enabledButton(flow_id, flownode_name);
@@ -56,8 +57,9 @@
 
     function enabledButton(flow_id, flownode_name){
       var btn_str = "#btn_add, #btn_refresh, #btn_search";
-      if (flow_id) {if (flownode_name) {btn_str  = btn_str + ", #btn_" + flownode_name;}} // 审核中，对应流程节点可用
-      else {btn_str = btn_str + ",#btn_update, #btn_delete, #btn_audit_self";}; // 未审核，删、改、自检可用
+      if (form_status && (form_status<'1000')) {btn_str = btn_str + ",#btn_update, #btn_delete, #btn_audit_self";} // 未审核，删、改、自检可用
+      if (flow_id && flownode_name) {btn_str  = btn_str + ", #btn_" + flownode_name;} // 审核中，对应流程节点可用
+      else {btn_str = btn_str + ", #btn_audit_unaudit";} // 审核中，无对应节点则反审可用
       btn_str = btn_str + ", #btn_show"; // 查看在选择记录后一直可用
       $j("button").attr('disabled',true);
       $j(btn_str).attr('disabled',false);
