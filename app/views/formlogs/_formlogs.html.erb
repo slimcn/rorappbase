@@ -1,0 +1,17 @@
+  <fieldset>
+    <legend><%= t('activerecord.models.formlog') %></legend>
+    <table id='formlogs' border='1'>
+      <tr align='center'>
+        <th><%= t('activerecord.attributes.formlog.remarks') %></th>
+        <th><%= t('activerecord.attributes.formlog.content') %></th>
+      </tr>
+      <% logs.each do |log| -%>
+        <tr class='formlog'>
+          <td><%= log.remarks %></td>
+          <td><%= log.content %></td>
+        </tr>
+      <% end -%>
+
+    </table>
+  </fieldset>
+
