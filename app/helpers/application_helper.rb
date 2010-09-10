@@ -89,7 +89,7 @@ module ApplicationHelper
 
     # 若fields中无label，则补上
     fields.each_index do |index|
-      fields[index] = { :label => I18n.t("activerecord.attributes.#{name_single}.#{fields[index][:field]}")}.merge(fields[index])
+      fields[index] = { :label => I18n.t("activerecord.attributes.#{name_single}.#{fields[index][:field]}", :default=>[I18n.t("common.#{fields[index][:field]}")])}.merge(fields[index])
     end
 
     # fields数组 若第1、2个定义非id，则补上id字段
