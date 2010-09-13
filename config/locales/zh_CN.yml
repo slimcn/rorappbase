@@ -2,6 +2,7 @@ zh_CN:
   common:
     code: "编码"
     name: "名称"
+    name_cn: "中文名称"
     status: "状态"
     remarks: "备注"
     auditflow_id: "审核流程"
@@ -238,13 +239,6 @@ zh_CN:
       employes_user: "用户雇员"
 
     attributes:
-      template:
-        code: "编码"
-        name: "名称"
-        name_cn: "中文名称"
-        rec_type: "类型"
-        status: "状态"
-        remarks: "备注"
 
       flownode:
         code: "编码"

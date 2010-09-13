@@ -9,7 +9,8 @@ class FieldsController < ApplicationController
     @sheet_fields = [{ :field => 'code', :width => 80, :editable => true},
                      { :field => 'name', :width => 80, :editable => true},
                      { :field => 'rec_type', :width => 80, :editable => true},
-                     { :field => 'form_id', :width => 80, :editable => true},
+                     { :field => 'form_id', :width => 80, :editable => true, :edittype => "select",
+                       :editoptions => { :value => get_records_format_data(Form, [:id, :code, :name])}},
                      { :field => 'name_cn', :width => 80, :editable => true},
                      { :field => 'remarks', :width => 80, :editable => true}]
     @sheet_detail_fields = ''

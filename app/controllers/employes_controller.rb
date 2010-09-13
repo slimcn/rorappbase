@@ -8,7 +8,8 @@ class EmployesController < ApplicationController
                       }
     @sheet_fields = [{ :field => 'code', :width => 80, :editable => true},
                      { :field => 'name', :width => 80, :editable => true},
-                     { :field => 'department_id', :width => 80, :editable => true},
+                     { :field => 'department_id', :width => 80, :editable => true, :edittype => "select",
+                       :editoptions => { :value => get_records_format_data(Department, [:id,:code,:name])}},
                      { :field => 'remarks', :width => 80, :editable => true}]
     @sheet_detail_fields = ''
     @sheet_fields_no_id = ":code, :name, :department_id, :remarks"

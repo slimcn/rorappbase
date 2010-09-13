@@ -143,4 +143,13 @@ class FormsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+def self.get_records_format_data()
+    arr_data = []
+    arr_data.push(["",""])
+    Form.find(:all).each do |rec|
+      arr_data.push([rec[:id], rec[:code] + " " + rec[:name]])
+    end
+    return arr_data
+  end
 end

@@ -3,6 +3,10 @@
 <% form_for(@user) do |f| %>
   <%= f.error_messages %>
 
+<p>
+     <%= f.label :login, t('activerecord.attributes.user.login') %><br />
+    <%= f.text_field :login %>
+  </p>
   <p>
      <%= f.label :name, t('activerecord.attributes.user.name') %><br />
     <%= f.text_field :name %>

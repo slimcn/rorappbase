@@ -6,8 +6,10 @@ class RolesUsersController < ApplicationController
     @sheet_options = {'name' => "RolesUser",
                       "edit_form_type" => "multi_model"
                       }
-    @sheet_fields = [{ :field => 'user_id', :width => 80, :editable => true},
-                     { :field => 'role_id', :width => 80, :editable => true},
+    @sheet_fields = [{ :field => 'user_id', :width => 80, :editable => true, :edittype => "select",
+                       :editoptions => { :value => get_records_format_data(User, [:id,:login])}},
+                     { :field => 'role_id', :width => 80, :editable => true, :edittype => "select",
+                       :editoptions => { :value => get_records_format_data(Role, [:id, :name])}},
                      { :field => 'remarks', :width => 80, :editable => true}]
     @sheet_detail_fields = ''
     @sheet_fields_no_id = ":user_id, :role_id, :remarks"

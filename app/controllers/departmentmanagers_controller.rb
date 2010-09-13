@@ -6,8 +6,10 @@ class DepartmentmanagersController < ApplicationController
     @sheet_options = {'name' => "Departmentmanager",
                       "edit_form_type" => "multi_model"
                       }
-    @sheet_fields = [{ :field => 'department_id', :width => 80, :editable => true},
-                     { :field => 'employe_id', :width => 80, :editable => true},
+    @sheet_fields = [{ :field => 'department_id', :width => 80, :editable => true, :edittype => "select",
+                       :editoptions => { :value => get_records_format_data(Department, [:id,:code,:name])}},
+                     { :field => 'employe_id', :width => 80, :editable => true, :edittype => "select",
+                       :editoptions => { :value => get_records_format_data(Employe, [:id,:code,:name])}}]
                      { :field => 'remarks', :width => 80, :editable => true}]
     @sheet_detail_fields = ''
     @sheet_fields_no_id = ":department_id, :employe_id, :remarks"

@@ -6,8 +6,10 @@ class FormsMenutreesController < ApplicationController
     @sheet_options = {'name' => "FormsMenutree",
                       "edit_form_type" => "multi_model"
                       }
-    @sheet_fields = [{ :field => 'menutree_id', :width => 80, :editable => true},
-                     { :field => 'form_id', :width => 80, :editable => true},
+    @sheet_fields = [{ :field => 'menutree_id', :width => 80, :editable => true, :edittype => "select",
+                       :editoptions => { :value => get_records_format_data(Menutree,[:id, :code, :name])}},
+                     { :field => 'form_id', :width => 80, :editable => true, :edittype => "select",
+                       :editoptions => { :value => get_records_format_data(Form, [:id, :code, :name])}},
                      { :field => 'remarks', :width => 80, :editable => true}]
     @sheet_detail_fields = ''
     @sheet_fields_no_id = ":menutree_id, :form_id, :remarks"

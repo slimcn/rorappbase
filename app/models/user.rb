@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :roles_users, :dependent => :destroy
   has_many :roles, :through => :roles_users
-
+  has_many_with_attributes :roles_users, :dependent => :destroy
   has_many :employes_users, :dependent => :destroy
   # has_many :employes, :through => :employes_users
   belongs_to :employe
@@ -57,6 +57,4 @@ class User < ActiveRecord::Base
   def email=(value)
     write_attribute :email, (value ? value.downcase : nil)
   end
-
-
 end

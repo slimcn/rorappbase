@@ -83,7 +83,7 @@ module UsersHelper
     if current_user
       link_to_user current_user, options
     else
-      content_text = options.delete(:content_text) || 'not signed in'
+      content_text = options.delete(:content_text) || I18n.t(:not_signed_in)
       # kill ignored options from link_to_user
       [:content_method, :title_method].each{|opt| options.delete(opt)} 
       link_to_login_with_IP content_text, options

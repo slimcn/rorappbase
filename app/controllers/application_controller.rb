@@ -308,7 +308,7 @@ class ApplicationController < ActionController::Base
 
   # 检查所做操作是否为当前可执行的动作
   def flow_is_need_action_on_flow(rec, action_name)
-    auditflow = AuditflowsForm.find(:first, :conditions=>"form_id=#{@rordemo.id} and form_type='#{@rordemo.class.name}'" )
+    auditflow = AuditflowsForm.find(:first, :conditions=>"form_id=#{rec.id} and form_type='#{rec.class.name}'" )
     if auditflow
       flownode_name = auditflow.auditflows_flownode.flownode.name if auditflow.auditflows_flownode && auditflow.auditflows_flownode.flownode
       flownode_name = (auditflow.auditflows_flownode && auditflow.auditflows_flownode.flownode) ? auditflow.auditflows_flownode.flownode.name : "audit_unaudit"

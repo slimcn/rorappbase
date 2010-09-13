@@ -6,8 +6,10 @@ class OperationsRolesController < ApplicationController
     @sheet_options = {'name' => "OperationsRole",
                       "edit_form_type" => "multi_model"
                       }
-    @sheet_fields = [{ :field => 'role_id', :width => 80, :editable => true},
-                     { :field => 'operation_id', :width => 80, :editable => true},
+    @sheet_fields = [{ :field => 'role_id', :width => 80, :editable => true, :edittype => "select",
+                       :editoptions => { :value => get_records_format_data(Role, [:id, :name])}},
+                     { :field => 'operation_id', :width => 80, :editable => true, :edittype => "select",
+                       :editoptions => { :value => get_records_format_data(Operation,[:id, :code,:name])}},
                      { :field => 'remarks', :width => 80, :editable => true}]
     @sheet_detail_fields = ''
     @sheet_fields_no_id = ":role_id, :operation_id, :remarks"
