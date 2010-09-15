@@ -5,3 +5,8 @@
 <%= link_to 'Back', rordemos_path %>
 <%= render :partial => "formlogs/formlogs", :locals => {:logs => @rordemo.formlogs} %>
 
+<script type="text/javascript" charset="utf-8">
+  $j(window).load(function(){
+    form_disabled();
+  });
+</script>

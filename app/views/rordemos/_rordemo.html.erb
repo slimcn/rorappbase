@@ -1,10 +1,12 @@
 
-<% form_for(@rordemo, :url => {:action => "audit"}) do |f| %>
+<% form_for(@rordemo) do |f| %>
   <%= f.error_messages %>
 
   <p>
     <%= f.label :code %><br />
-    <%= f.text_field :code %>
+    <% if params[:action]=='new' -%> <%= f.text_field :code, :value => @code %>
+    <% else -%> <%= f.text_field :code %>
+    <% end -%>
   </p>
   <p>
     <%= f.label :name %><br />
@@ -16,15 +18,27 @@
   </p>
   <p>
     <%= f.label :status %><br />
-    <%= f.text_field :status %>
+    <% if params[:action]=='new' -%> <%= f.text_field :status, :value => '0' %>
+    <% else -%> <%= f.text_field :status %>
+    <% end -%>
   </p>
   <p>
     <%= f.label :remarks %><br />
     <%= f.text_area :remarks %>
   </p>
   <p class='hidden'>
-    <%= f.label :employe_id %><%= f.text_field :employe_id %>
-    <%= f.label :department_id %><%= f.text_field :department_id %>
+    <%= f.label :code_rule_id, "code_rule_id" %>(编码规则id)
+    <% if params[:action]=='new' -%> <%= f.text_field :code_rule_id, :value => @code_rule_id %>
+    <% else -%> <%= f.text_field :code_rule_id %>
+    <% end -%>
+    <%= f.label :employe_id %>
+    <% if params[:action]=='new' -%> <%= f.text_field :employe_id, :value => @current_user.employe_id %>
+    <% else -%> <%= f.text_field :employe_id %>
+    <% end -%>
+    <%= f.label :department_id %>
+    <% if params[:action]=='new' -%> <%= f.text_field :department_id, :value => @current_user.employe.department_id %>
+    <% else -%> <%= f.text_field :department_id %>
+    <% end -%>
   </p>
   <p>
     <%= f.submit "Update" %>

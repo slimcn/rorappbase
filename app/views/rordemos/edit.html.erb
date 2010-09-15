@@ -1,36 +1,8 @@
 <h1>Editing rordemo</h1>
 
-<% form_for(@rordemo) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :code %><br />
-    <%= f.text_field :code %>
-  </p>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :recordtype %><br />
-    <%= f.text_field :recordtype %>
-  </p>
-  <p>
-    <%= f.label :status %><br />
-    <%= f.text_field :status %>
-  </p>
-  <p>
-    <%= f.label :remarks %><br />
-    <%= f.text_area :remarks %>
-  </p>
-  <p class='hidden'>
-    <%= f.label :employe_id %><%= f.text_field :employe_id %>
-    <%= f.label :department_id %><%= f.text_field :department_id %>
-  </p>
-  <p>
-    <%= f.submit "Update" %>
-  </p>
-<% end %>
+<%= render :partial => "rordemo" %>
 
 <%= link_to 'Show', @rordemo %> |
 <%= link_to 'Back', rordemos_path %>
+
+<%= render :partial => "formlogs/formlogs", :locals => {:logs => @rordemo.formlogs} %>

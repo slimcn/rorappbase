@@ -1,33 +1,13 @@
-<p>
-<%= t("activerecord.attributes.rordemo.code") %>
-  <b>Code:</b>
-  <%=h @rordemo.code %>
-</p>
 
-<p>
-  <b>Name:</b>
-  <%=h @rordemo.name %>
-</p>
-
-<p>
-  <b>Recordtype:</b>
-  <%=h @rordemo.recordtype %>
-</p>
-
-<p>
-  <b>Status:</b>
-  <%=h @rordemo.status %>
-</p>
-
-<p>
-  <b>Remarks:</b>
-  <%=h @rordemo.remarks %>
-</p>
-<p>
-  <b>Employe</b><%= @rordemo.employe.name if not @rordemo.employe.blank? %> <br />
-  <b>Department</b><%= @rordemo.department.name if not @rordemo.department.blank? %>
-</p>
-
+<%= render :partial => "rordemo" %>
 
 <%= link_to 'Edit', edit_rordemo_path(@rordemo) %> |
 <%= link_to 'Back', rordemos_path %>
+
+<%= render :partial => "formlogs/formlogs", :locals => {:logs => @rordemo.formlogs} %>
+
+<script type="text/javascript" charset="utf-8">
+  $j(window).load(function(){
+    form_disabled();
+  });
+</script>

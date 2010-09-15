@@ -86,7 +86,6 @@ $j(document).ready(function(){
     });
 <!-- // end // operate button action -->
 
-
     function openwin(url){
         window.open(url,'_self');
     }
@@ -100,3 +99,15 @@ function ExpandMenu(emcode, parentcode){
     obj.className = (obj.className.toLowerCase() == "expanded"?"expanded":"expanded");
 }
 
+// 设置表单为只读，满足查看而不可编辑的需要
+function form_disabled() { // 将表单设置为不可编辑
+    $j('form:not(#new_formlog) input').attr('readonly','true');
+    $j('form:not(#new_formlog) input[type=submit]').attr('disabled','true');
+    $j('form:not(#new_formlog) input[type=reset]').attr('disabled','true');
+    $j('form:not(#new_formlog) input[type=push]').attr('disabled','true');
+    $j('form:not(#new_formlog) textarea').attr('readonly','true');
+    $j('form:not(#new_formlog) select').attr('disabled','true');
+    $j('form:not(#new_formlog) button').attr('disabled','true');
+    $j('form:not(#new_formlog) option').attr('disabled','true');
+    $j('form:not(#new_formlog) optgroup').attr('disabled','true');
+};
