@@ -140,4 +140,49 @@ class <%= controller_class_name %>Controller < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  # PUT /<%= table_name %>/1/audit
+  # PUT /<%= table_name %>/1.xml/audit
+  def audit
+    @<%= file_name %> = <%= class_name %>.find(params[:id])
+    @formlog = Formlog.new(params[:formlog])
+    @auditflows_form = flow_get_auditflows_form(@formlog) # 获得表单-审核流程对应，没有对应(自检)时获得新的对应（未存入数据库）
+    if @auditflows_form.auditflows_flownode || flow_is_need_action_on_flow(@<%= file_name %>, params[:button_name])
+      # 设定审核操作相关值
+      @formlog, @auditflows_form, @<%= file_name %> = flow_set_rec_log_and_status(@formlog, @auditflows_form, @<%= file_name %>)
+    else  # 审核流程已经结束
+      flash[:notice] = "审核流程已结束，请勿重复操作！"
+      render :action => "show"
+      return
+    end
+
+    respond_to do |format|
+      begin
+        <%= class_name %>.transaction do
+          @formlog.save!
+          @auditflows_form.save!
+          @<%= file_name %>.save!
+          flash[:notice] = '审核完成.'
+          format.html { redirect_to(@<%= file_name %>) }
+          format.xml  { render :xml => @formlog, :status => :created, :location => @formlog }
+        end
+        rescue
+        format.html { render :action => "audit_self" }
+        format.xml  { render :xml => @formlog.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # get /<%= table_name %>/1/audit_self
+  def audit_self
+    @<%= file_name %> = <%= class_name %>.find(params[:id])
+    @button_name, @button_name_cn = params[:button_name], params[:button_name_cn]
+    if not flow_is_need_action_on_flow(@<%= file_name %>, @button_name) # 是否为当前要操作的节点
+      flash[:notice] = '操作流程不允许'
+      render :action => "show"
+      return
+    end
+    @formlog = flow_get_new_formlog(@<%= file_name %>)
+  end
+
 end

@@ -1,8 +1,10 @@
-<h1><%%= t('Show'.downcase) %> : <%%= t('activerecord.models.<%= singular_name %>') %></h1>
+<h1><%%= t('Audit'.downcase) %> : <%%= t('activerecord.models.<%= singular_name %>') %></h1>
+
+<%%= render :partial => "formlogs/formlog" %>
 
 <%%= render :partial => "<%= singular_name %>"  %>
 
-<%%= link_to t('Edit'.downcase), edit_<%= singular_name %>_path(@<%= singular_name %>) %> |
+<%%= link_to t('Show'.downcase), @<%= singular_name %> %> |
 <%%= link_to t('Back'.downcase), <%= plural_name %>_path %>
 
 <%%= render :partial => "formlogs/formlogs", :locals => {:logs => @<%= singular_name %>.formlogs} %>
@@ -12,4 +14,3 @@
     form_disabled();
   });
 </script>
-

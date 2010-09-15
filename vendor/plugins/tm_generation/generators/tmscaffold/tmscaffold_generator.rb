@@ -54,9 +54,10 @@ class TmscaffoldGenerator < Rails::Generator::NamedBase
       m.directory(File.join('public/stylesheets', class_path))
 
       for action in scaffold_views
+        file_name = (action=="form") ? "_#{singular_name}" : action # 如果是form，则文件名对应单数名称
         m.template(
           "view_#{action}.html.erb",
-          File.join('app/views', controller_class_path, controller_file_name, "#{action}.html.erb")
+          File.join('app/views', controller_class_path, controller_file_name, "#{file_name}.html.erb")
         )
       end
 
@@ -95,7 +96,7 @@ class TmscaffoldGenerator < Rails::Generator::NamedBase
     end
 
     def scaffold_views
-      %w[ index show new edit ]
+      %w[ index show new edit audit_self form]
     end
 
     def model_name
