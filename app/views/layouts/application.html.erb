@@ -47,6 +47,7 @@
     $j("#tableRecs").jqGrid("setGridParam",{onSelectRow: function(id) {
       var id = $j("#tableRecs").jqGrid("getGridParam","selrow");
       var flow_id, flownode_name
+      var form_status_is_exist = ($j("#tableRecs_status").length > 0) // 确定status字段是否存在
       if (id) {
         var ret = $j("#tableRecs").jqGrid("getRowData",id);
         form_status = ret.status;
@@ -55,9 +56,10 @@
       enabledButton(flow_id, flownode_name);
     }});
 
-    function enabledButton(flow_id, flownode_name){
+    function enabledButton(flow_id, flownode_name, form_status, form_status_is_exist){
       var btn_str = "#btn_add, #btn_refresh, #btn_search";
-      if (form_status && (form_status<'1000')) {btn_str = btn_str + ",#btn_update, #btn_delete, #btn_audit_self";} // 未审核，删、改、自检可用
+      if (!(form_status_is_exist)) {btn_str = btn_str + ",#btn_update, #btn_delete";} //状态字段不存在，审核相关不可用，删改可用
+      else if (form_status && (form_status<'1000')) {btn_str = btn_str + ",#btn_update, #btn_delete, #btn_audit_self";} // 未审核，删、改、自检可用
       if (flow_id && flownode_name) {btn_str  = btn_str + ", #btn_" + flownode_name;} // 审核中，对应流程节点可用
       else {btn_str = btn_str + ", #btn_audit_unaudit";} // 审核中，无对应节点则反审可用
       btn_str = btn_str + ", #btn_show"; // 查看在选择记录后一直可用
