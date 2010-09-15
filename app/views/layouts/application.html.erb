@@ -51,9 +51,10 @@
       if (id) {
         var ret = $j("#tableRecs").jqGrid("getRowData",id);
         form_status = ret.status;
+        if (form_status) {} else {form_status = '0';}
         flow_id = ret.auditflow_id;
         flownode_name = ret.auditflows_flownode_name;}
-      enabledButton(flow_id, flownode_name);
+      enabledButton(flow_id, flownode_name, form_status, form_status_is_exist);
     }});
 
     function enabledButton(flow_id, flownode_name, form_status, form_status_is_exist){
